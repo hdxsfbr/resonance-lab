@@ -1,0 +1,18 @@
+Step {step}. Channel: {channel}.
+
+Observed phrase features (from the note list; no audio):
+{feature_summary}
+
+Timing patterns (public set; onsets in beats within a 4-beat bar):
+{patterns}
+
+Local learner expected score per pattern:
+{learner_scores}
+
+Your state:
+{state}
+
+Retrieved memories (your action then and its score):
+{memories}
+
+Reply with the JSON object only.

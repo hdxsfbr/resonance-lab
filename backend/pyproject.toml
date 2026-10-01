@@ -31,6 +31,7 @@ include = ["resonance*"]
 testpaths = ["tests"]
 asyncio_mode = "auto"
 filterwarnings = ["ignore::DeprecationWarning"]
+markers = ["slow: exercises the real local model; skip with RESONANCE_SKIP_SLOW=1"]
 
 [tool.ruff]
 line-length = 110

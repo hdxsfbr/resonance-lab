@@ -44,7 +44,7 @@ resume point; update it at every checkpoint.
 - [x] Contracts: `schemas.py`, `docs/CONTRACTS.md`, `config/default.yaml`, API signatures, generated TS types
 - [ ] WS1 sim core (music, features, synth, agents, env, session, conditions, experiments, persistence, API)
 - [ ] WS2 frontend (lab screen, audio, piano roll, plots, controls, interventions, inspector, experiments view)
-- [ ] WS3 research note, providers (llamacpp tested; anthropic/openai untested), prompts, model setup docs
+- [x] WS3 research note, providers (llamacpp tested with real local call; anthropic/openai-compatible untested against live services, plumbing unit-tested), prompts, model setup docs — 56 tests pass (53 + 3 slow)
 - [ ] Integration: real API ↔ frontend, `make types` regenerated, `./start.sh` works
 - [ ] Browser smoke test (Playwright) at desktop size
 - [ ] Batch experiments run; sample exports + report in `data/exports/` and `docs/EXPERIMENT_REPORT.md`
@@ -67,4 +67,5 @@ Launch WS1/WS2/WS3 Opus agents with the briefs below; while they run, write READ
 
 ## Validation log
 
+- 2026-10-01 06:35 — WS3: `RESONANCE_SKIP_SLOW=1 pytest tests/test_models_*.py` → 53 passed, 3 skipped; ruff clean. Real local-model receiver decision: ~11 s idle, 22 s under load; the 0.5B model is a weak decision-maker (recorded honestly).
 - 2026-10-01 05:58 — schemas import; `config/default.yaml` validates; OpenAPI: 25 routes, 51 schemas; TS types generated (2544 lines).

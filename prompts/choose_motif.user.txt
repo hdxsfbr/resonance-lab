@@ -1,0 +1,17 @@
+Step {step}. Partner: {partner_id}.
+
+Pattern your partner must identify (private to you): #{target_id} "{target_name}", onsets {target_onsets} (beats within a 4-beat bar).
+
+Motif bank (index: name):
+{motifs}
+
+Local learner estimated score per motif for this pattern:
+{learner_values}
+
+Your state:
+{state}
+
+Retrieved memories (your action then and its score):
+{memories}
+
+Reply with the JSON object only.

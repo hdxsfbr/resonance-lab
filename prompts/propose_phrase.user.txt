@@ -1,0 +1,12 @@
+Step {step}. Partner: {partner_id}.
+
+Pattern your partner must identify (private to you): #{target_id} "{target_name}", onsets {target_onsets} (beats within a 4-beat bar).
+Phrase length: {length_beats} beats.
+
+Your motif bank, for reference (index: name):
+{motifs}
+
+Your state:
+{state}
+
+Reply with the JSON object only.

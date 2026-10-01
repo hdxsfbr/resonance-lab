@@ -1,0 +1,10 @@
+Episode summary:
+{episode_summary}
+
+State before (per agent):
+{state_before}
+
+State after (per agent):
+{state_after}
+
+Reply with the JSON object only.
