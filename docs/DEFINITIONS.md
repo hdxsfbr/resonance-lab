@@ -8,7 +8,7 @@ experience. Where the UI uses a word like "activation", this page is its definit
 
 | Variable | Range | Baseline | Operational definition |
 |---|---|---|---|
-| `activation` | [0, 1] | 0.5 | Drive-like scalar. Raised by dense/loud input when the hand-authored acoustic influence is on, and by surprising outcomes. Decays toward baseline. When coupling is on it lowers the exploration temperature and raises expressive tempo and velocity. |
+| `activation` | [0, 1] | 0.5 | Drive-like scalar. Raised by dense/loud input when the hand-authored acoustic influence is on, and by better-than-expected outcomes; lowered by worse-than-expected ones (signed prediction error). Decays toward baseline. When coupling is on it lowers the exploration temperature and raises expressive tempo and velocity. |
 | `expected_value` | [0, 1] | 0.5 | Running expectation of the coordination score. |
 | `uncertainty` | [0, 1] | 0.5 | Running magnitude of recent prediction error. When coupling is on it raises the exploration temperature. |
 | `affiliation` | [−1, 1] | 0.0 | Running credit toward the partner: rises with shared success, falls with shared failure; nudged up by phrases similar to the agent's own (hand-authored). When coupling is on it scales the effective learning rate. |
@@ -33,8 +33,11 @@ s_k'      = clip( s_k + delta_k, bounds_k )
   **This is hand-authored, switchable, and not learned.** Turning it off removes the only
   direct acoustic→state path; any remaining history dependence then comes through
   prediction errors and outcomes.
-- `pe_term` is `pe` for `activation`, `(|pe| − uncertainty)` for `uncertainty`, and
-  `pe` for `expected_value` (so `expected_value` tracks the score).
+- `pe_term` is the signed `pe` for `activation` (so `activation` and `uncertainty` are not redundant),
+  `(|pe| − uncertainty)` for `uncertainty`, and `pe` for `expected_value` (so `expected_value`
+  tracks the score). The receiver's input is centred: `x = φ − φ_ref`, where `φ_ref` is the mean
+  feature vector of the motif bank (a fixed, documented constant), so bank motifs are roughly
+  orthogonal. Only the agent that *heard* a phrase (the receiver) gets the acoustic drive.
 - `inertia_k` keeps a fraction of the previous value; `decay_k` is the configurable
   return toward baseline; `max_step_k` bounds every update.
 - `frozen` skips the update entirely and records `inputs.frozen = true`.

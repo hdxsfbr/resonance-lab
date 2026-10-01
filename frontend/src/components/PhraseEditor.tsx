@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Instrument, Note, Phrase, PhraseFeatures, SavedMotif } from '../api/types'
 import { useLab } from '../state/LabContext'
 import { audioEngine } from '../audio/engine'
@@ -54,10 +54,12 @@ export function PhraseEditor() {
   const [loadSel, setLoadSel] = useState('')
   const [target, setTarget] = useState<string>('random')
   const [receiver, setReceiver] = useState<string>('auto')
-  const [features, setFeatures] = useState<PhraseFeatures | null>(null)
+  // measured features are only shown while they still describe the current notes/tempo
+  const [measured, setMeasured] = useState<{ key: string; f: PhraseFeatures } | null>(null)
   const [msg, setMsg] = useState<string | null>(null)
   const drag = useRef<{ idx: number; y: number; v0: number; moved: boolean } | null>(null)
   const pitches = scalePitches(scale)
+  const phraseKey = JSON.stringify([notes, tempo, instrument])
   const rows = [...pitches].reverse()
 
   const phrase: Phrase = {
@@ -71,20 +73,17 @@ export function PhraseEditor() {
     tags: ['human'],
   }
 
-  const refreshSaved = useCallback(async () => {
+  useEffect(() => {
     if (!api) return
-    try {
-      setSaved(await api.savedMotifs())
-    } catch (e) {
-      setMsg(`load saved motifs failed: ${errorMessage(e)}`)
+    let cancelled = false
+    api
+      .savedMotifs()
+      .then((list) => !cancelled && setSaved(list))
+      .catch((e) => !cancelled && setMsg(`load saved motifs failed: ${errorMessage(e)}`))
+    return () => {
+      cancelled = true
     }
   }, [api])
-
-  useEffect(() => {
-    void refreshSaved()
-  }, [refreshSaved])
-
-  useEffect(() => setFeatures(null), [notes, tempo])
 
   const toggleAt = (col: number, pitch: number) => {
     const onset = col * STEP
@@ -131,12 +130,13 @@ export function PhraseEditor() {
   const measure = async () => {
     if (!api) return
     try {
-      setFeatures(await api.phraseFeatures(phrase))
+      setMeasured({ key: phraseKey, f: await api.phraseFeatures(phrase) })
     } catch (e) {
       setMsg(`features failed: ${errorMessage(e)}`)
     }
   }
 
+  const features = measured && measured.key === phraseKey ? measured.f : null
   const s = state.session
   const canSend = !!s && s.mode !== 'replay' && phrase.notes.length > 0
   const cell = 17

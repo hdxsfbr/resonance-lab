@@ -74,6 +74,12 @@
   .app {
     height: auto;
   }
+  .meta--session {
+    display: none;
+  }
+  .header__meta {
+    gap: 4px 12px;
+  }
   .lab {
     grid-template-columns: 210px minmax(0, 1fr) 210px;
   }
@@ -117,6 +123,10 @@
   gap: 14px;
   flex: 1;
   flex-wrap: wrap;
+}
+
+.meta {
+  white-space: nowrap;
 }
 
 .meta__k {
@@ -583,6 +593,18 @@
 .kv dd {
   margin: 0;
   color: var(--text);
+}
+
+.kv--nested {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  margin: 0;
+}
+
+.kv__pair {
+  display: flex;
+  gap: 4px;
 }
 
 .kv--inline {
@@ -1258,6 +1280,7 @@
 
 .tl__markerrow td {
   padding: 1px 6px;
+  white-space: normal;
 }
 
 .tl-marker {

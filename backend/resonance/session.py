@@ -180,7 +180,15 @@ class Session:
         return ev
 
     def _emitter(self, agent_id: str) -> Callable[[str, dict[str, Any]], Event]:
-        return lambda t, p: self._emit(t, p, agent_id=agent_id, visibility="experimenter")
+        """emit() handed to policies (model_call events). Honours payload["visibility_hint"]
+        (e.g. "sender_private" for sender-side model calls that contain the target)."""
+
+        def emit(type_: str, payload: dict[str, Any]) -> Event:
+            hint = payload.get("visibility_hint")
+            visibility = hint if hint in ("public", "sender_private", "experimenter") else "experimenter"
+            return self._emit(type_, payload, agent_id=agent_id, visibility=visibility)
+
+        return emit
 
     def roles(self, step: int) -> tuple[Agent, Agent]:
         """(sender, receiver): agent 0 sends on even steps, agent 1 on odd steps."""

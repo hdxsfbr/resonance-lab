@@ -1,5 +1,6 @@
 import { useLab } from '../state/LabContext'
 import { focusedEpisode } from '../state/store'
+import { senderLabel } from '../api/events'
 import { MOCK_SCORING_RULE, SCORING_RULE } from '../lib/definitions'
 import { pct, fmt } from '../lib/format'
 import { InfoTip } from './InfoTip'
@@ -21,7 +22,7 @@ export function TaskCard() {
         <span className="muted small">
           {ep ? (
             <>
-              {agentName(ep.senderId)} → {agentName(ep.receiverId)}
+              {senderLabel(ep, agentName)} → {agentName(ep.receiverId)}
             </>
           ) : (
             'no episode yet'

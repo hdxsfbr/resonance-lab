@@ -16,7 +16,7 @@ export function AgentPanel({ agent, side }: { agent: AgentSnapshot | undefined; 
     )
   }
   const ep = focusedEpisode(state)
-  const role = ep ? (ep.senderId === agent.id ? 'sender' : ep.receiverId === agent.id ? 'receiver' : 'idle') : '—'
+  const role = ep ? (ep.senderId === agent.id && !ep.human ? 'sender' : ep.receiverId === agent.id ? 'receiver' : 'idle') : '—'
   const change = ep?.stateChanges[agent.id]
   const isLatest = state.selectedStep === null
   const shownState = isLatest ? agent.state : (change?.after ?? agent.state)

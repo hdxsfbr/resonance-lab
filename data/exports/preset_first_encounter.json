@@ -1,0 +1,60 @@
+{
+ "preset": "first_encounter",
+ "seed": 7,
+ "sessions": [
+  {
+   "id": "ae88994d4131",
+   "created_at": "2026-10-01T06:50:10.174+00:00",
+   "mode": "live",
+   "preset": "first_encounter",
+   "seed": 7,
+   "condition": {
+    "name": "full",
+    "perturbation": "none",
+    "description": "Full model: learning, episodic memory, state updates and state-to-policy coupling on; music channel."
+   },
+   "step": 60,
+   "status": "finished"
+  }
+ ],
+ "comparison": {
+  "episodes": 60,
+  "chance_score": 0.325595,
+  "first_block_score": 0.467063,
+  "final_block_score": 0.494841,
+  "success_rate": 0.433333,
+  "learning_curve": [
+   0.41746,
+   0.516667,
+   0.572222,
+   0.56746,
+   0.438889,
+   0.734127,
+   0.35,
+   0.511905,
+   0.26746,
+   0.722222
+  ],
+  "policy_shift_kl": {
+   "A_receiver": 0.891251,
+   "A_sender": 0.846933,
+   "B_receiver": 0.78453,
+   "B_sender": 1.40938
+  },
+  "final_states": {
+   "A": {
+    "activation": 0.653099996,
+    "expected_value": 0.672184093,
+    "uncertainty": 0.473832381,
+    "affiliation": 0.243912734
+   },
+   "B": {
+    "activation": 0.646643816,
+    "expected_value": 0.672184093,
+    "uncertainty": 0.473832381,
+    "affiliation": 0.243912734
+   }
+  }
+ },
+ "narrative": "[templated summary, not model-generated] Over 60 episodes the mean score moved from 0.47 (first 20%) to 0.49 (last 20%); chance is 0.33."
+}

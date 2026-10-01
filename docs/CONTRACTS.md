@@ -85,8 +85,7 @@ Sessions live in memory while the server runs and are persisted to SQLite
 
 ## RNG streams
 
-`numpy.random.SeedSequence(seed).spawn(4)` → `rng_env`, `rng_policy_A`, `rng_policy_B`, `rng_gen`.
-Perturbations use a 5th stream `rng_perturb`. Same seed + same config ⇒ identical event log in local mode.
+`numpy.random.SeedSequence(seed).spawn(5)` → `rng_env`, `rng_policy_A`, `rng_policy_B`, `rng_gen`, `rng_perturb`. Same seed + same config ⇒ identical event log in local mode.
 
 ## Frontend ownership of time
 

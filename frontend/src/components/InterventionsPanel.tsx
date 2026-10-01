@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { Perturbation, StateDim } from '../api/types'
 import { useLab } from '../state/LabContext'
 import { focusedEpisode } from '../state/store'
@@ -11,15 +11,13 @@ function Effect({ when }: { when: 'next step' | 'immediately' }) {
 
 function ParamSlider({ label, path, value, min, max, step, disabled, hint }: { label: string; path: string; value: number; min: number; max: number; step: number; disabled: boolean; hint?: string }) {
   const { actions } = useLab()
-  const [v, setV] = useState(value)
-  const [dirty, setDirty] = useState(false)
-  useEffect(() => {
-    if (!dirty) setV(value)
-  }, [value, dirty])
+  // draft is the value being dragged; when null the slider shows the session's value
+  const [draft, setDraft] = useState<number | null>(null)
+  const v = draft ?? value
   const commit = () => {
-    if (!dirty) return
-    setDirty(false)
-    void actions.intervene({ kind: 'set_param', path, value: Number(v.toFixed(4)) })
+    if (draft === null) return
+    const next = Number(draft.toFixed(4))
+    void actions.intervene({ kind: 'set_param', path, value: next }).finally(() => setDraft(null))
   }
   return (
     <label className="slider" title={`set_param ${path}${hint ? ` — ${hint}` : ''}`}>
@@ -31,15 +29,33 @@ function ParamSlider({ label, path, value, min, max, step, disabled, hint }: { l
         step={step}
         value={v}
         disabled={disabled}
-        onChange={(e) => {
-          setV(Number(e.target.value))
-          setDirty(true)
-        }}
+        onChange={(e) => setDraft(Number(e.target.value))}
         onPointerUp={commit}
         onKeyUp={commit}
         onBlur={commit}
       />
       <span className="mono slider__val">{fmt(v, 2)}</span>
+    </label>
+  )
+}
+
+/** Checkbox that shows the requested value immediately and reconciles with the snapshot when the call returns. */
+function PendingToggle({ checked, disabled, label, onToggle }: { checked: boolean; disabled: boolean; label: string; onToggle: (next: boolean) => Promise<boolean> }) {
+  const [pending, setPending] = useState<boolean | null>(null)
+  return (
+    <label className="check small">
+      <input
+        type="checkbox"
+        disabled={disabled}
+        checked={pending ?? checked}
+        aria-busy={pending !== null}
+        onChange={(e) => {
+          const next = e.target.checked
+          setPending(next)
+          void onToggle(next).finally(() => setPending(null))
+        }}
+      />{' '}
+      {label}
     </label>
   )
 }
@@ -119,12 +135,8 @@ export function InterventionsPanel() {
             <span className="agentchip" style={{ ['--agent' as string]: a.color }}>
               {a.name}
             </span>
-            <label className="check small">
-              <input type="checkbox" disabled={disabled} checked={a.frozen_state} onChange={(e) => void actions.intervene({ kind: 'freeze_state', agent_id: a.id, value: e.target.checked })} /> freeze state
-            </label>
-            <label className="check small">
-              <input type="checkbox" disabled={disabled} checked={!a.coupling_enabled} onChange={(e) => void actions.intervene({ kind: 'set_coupling', agent_id: a.id, value: !e.target.checked })} /> disable coupling
-            </label>
+            <PendingToggle label="freeze state" disabled={disabled} checked={a.frozen_state} onToggle={(v) => actions.intervene({ kind: 'freeze_state', agent_id: a.id, value: v })} />
+            <PendingToggle label="disable coupling" disabled={disabled} checked={!a.coupling_enabled} onToggle={(v) => actions.intervene({ kind: 'set_coupling', agent_id: a.id, value: !v })} />
           </div>
         ))}
       </div>

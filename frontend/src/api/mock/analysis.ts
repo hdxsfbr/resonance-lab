@@ -7,6 +7,7 @@ import type {
   ExperimentRequest,
   ExperimentResult,
   Phrase,
+  PolicyTrace,
   PresetResult,
   RunExport,
   RunMetrics,
@@ -20,7 +21,7 @@ import { MOCK_MOTIFS, MOCK_TEMPO } from './data'
 import { Rng } from './rng'
 import { MockSim, scorePatterns } from './sim'
 import { transformPhrase } from './transforms'
-import { isStateVector } from '../events'
+import { isPolicyTrace, isStateVector } from '../events'
 
 export function basePhrase(i: number, instrument: Phrase['instrument'] = 'pluck', lengthBeats = 8): Phrase {
   const m = MOCK_MOTIFS[i]
@@ -328,21 +329,50 @@ export class MockReplay {
     const f = this.run.final_snapshot
     const scores: number[] = []
     const lastState: Record<string, StateVector> = {}
+    const updates: Record<string, number> = {}
+    const memory: Record<string, number> = {}
+    const frozen: Record<string, boolean> = {}
+    const coupling: Record<string, boolean> = {}
+    const traces: Record<string, PolicyTrace> = {}
     let current: SessionSnapshot['current_episode'] = null
+    const ids = f.agents.map((a) => a.id)
+    const each = (agentId: unknown, fn: (id: string) => void) => (typeof agentId === 'string' ? [agentId] : ids).forEach(fn)
     for (const e of this.emitted) {
-      const p = e.payload ?? {}
+      const p = (e.payload ?? {}) as Record<string, unknown>
       if (e.type === 'outcome' && typeof p.score === 'number') scores.push(p.score)
-      if (e.type === 'state_update' && e.agent_id && isStateVector(p.after)) lastState[e.agent_id] = p.after
+      if (e.type === 'state_update' && e.agent_id) {
+        if (isStateVector(p.after)) lastState[e.agent_id] = p.after
+        memory[e.agent_id] = (memory[e.agent_id] ?? 0) + 1
+      }
+      if (e.type === 'learning_update' && e.agent_id && !p.skipped) updates[e.agent_id] = (updates[e.agent_id] ?? 0) + 1
+      if ((e.type === 'action_chosen' || e.type === 'phrase_sent') && e.agent_id && isPolicyTrace(p.trace)) traces[e.agent_id] = p.trace
+      if (e.type === 'intervention') {
+        if (p.kind === 'freeze_state') each(p.agent_id, (id) => (frozen[id] = p.value !== false))
+        if (p.kind === 'set_coupling') each(p.agent_id, (id) => (coupling[id] = p.value !== false))
+        if (p.kind === 'reset_memory') each(p.agent_id, (id) => ((memory[id] = 0), (updates[id] = 0)))
+        if (p.kind === 'reset_state') each(p.agent_id, (id) => delete lastState[id])
+      }
       if (e.type === 'episode_complete' && p.episode && typeof p.episode === 'object') current = p.episode as SessionSnapshot['current_episode']
     }
     const done = this.cursor >= this.steps.length
+    const fixed = f.condition.name === 'state_fixed'
     return {
       ...f,
       id: this.id,
       mode: 'replay',
       step: this.cursor === 0 ? 0 : this.steps[this.cursor - 1] + 1,
       status: done ? 'finished' : this.cursor === 0 ? 'ready' : 'running',
-      agents: f.agents.map((a) => ({ ...a, state: lastState[a.id] ?? a.baseline })),
+      // Reconstructed from replayed events. Learned weights cannot be rebuilt from the log:
+      // `learner` values are the recorded run's FINAL values (the inspector says so).
+      agents: f.agents.map((a) => ({
+        ...a,
+        state: lastState[a.id] ?? a.baseline,
+        memory_size: Math.min(memory[a.id] ?? 0, f.config.memory?.capacity ?? Infinity),
+        learner: { ...a.learner, updates: updates[a.id] ?? 0 },
+        frozen_state: fixed || (frozen[a.id] ?? false),
+        coupling_enabled: f.condition.name === 'state_decoupled' ? false : (coupling[a.id] ?? true),
+        last_trace: traces[a.id] ?? null,
+      })),
       current_episode: current,
       metrics: {
         episodes: scores.length,

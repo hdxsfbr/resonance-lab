@@ -66,6 +66,14 @@ test('run loop, interventions, composer, preset comparison, export/import replay
   await expect(page.getByTestId('timeline-row')).toHaveCount(before + 1)
   await page.screenshot({ path: `${SHOTS}/05-after-interventions.png` })
 
+  // WAV export of the shown phrase (browser OfflineAudioContext render)
+  const [wav] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '⤓ WAV' }).click()])
+  const wavPath = `test-results/mock-phrase.wav`
+  await wav.saveAs(wavPath)
+  const bytes = (await import('node:fs')).readFileSync(wavPath)
+  expect(bytes.subarray(0, 4).toString('latin1')).toBe('RIFF')
+  expect(bytes.length).toBeGreaterThan(10_000)
+
   // config popover
   await page.getByTestId('config-button').click()
   await expect(page.getByRole('dialog', { name: 'Configuration summary' })).toContainText('model input modality')
@@ -79,7 +87,7 @@ test('run loop, interventions, composer, preset comparison, export/import replay
   await expect(page.getByTestId('data-source-badge')).toContainText('REPLAY')
   await page.getByTestId('step').click()
   await page.getByTestId('step').click()
-  await expect(page.getByTestId('episode-counter')).toContainText('2')
+  await expect(page.getByTestId('episode-counter')).toHaveText(/^\s*2\s*\//)
   await page.screenshot({ path: `${SHOTS}/06-replay.png` })
 
   expect(errors, `console errors:\n${errors.join('\n')}`).toEqual([])

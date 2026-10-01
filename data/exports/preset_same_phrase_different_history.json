@@ -1,0 +1,90 @@
+{
+ "preset": "same_phrase_different_history",
+ "seed": 7,
+ "sessions": [
+  {
+   "id": "317caa02850b",
+   "created_at": "2026-10-01T06:50:10.704+00:00",
+   "mode": "live",
+   "preset": "same_phrase_different_history",
+   "seed": 7,
+   "condition": {
+    "name": "full",
+    "perturbation": "none",
+    "description": "Full model: learning, episodic memory, state updates and state-to-policy coupling on; music channel."
+   },
+   "step": 60,
+   "status": "finished"
+  },
+  {
+   "id": "191394a529b4",
+   "created_at": "2026-10-01T06:50:10.705+00:00",
+   "mode": "live",
+   "preset": "same_phrase_different_history",
+   "seed": 7,
+   "condition": {
+    "name": "full",
+    "perturbation": "none",
+    "description": "Full model: learning, episodic memory, state updates and state-to-policy coupling on; music channel."
+   },
+   "step": 60,
+   "status": "finished"
+  }
+ ],
+ "comparison": {
+  "receiver_id": "B",
+  "probe_motif": 3,
+  "probe_target": 2,
+  "probe_state": {
+   "activation": 0.5,
+   "expected_value": 0.5,
+   "uncertainty": 0.5,
+   "affiliation": 0.0
+  },
+  "predictive_probs": [
+   0.000236,
+   0.000236,
+   0.999292,
+   0.000236
+  ],
+  "uninformative_probs": [
+   0.24416,
+   0.162069,
+   0.25965,
+   0.334121
+  ],
+  "predictive_top": 2,
+  "uninformative_top": 3,
+  "predictive_p_target": 0.999292,
+  "uninformative_p_target": 0.25965,
+  "entropy_predictive": 0.006618,
+  "entropy_uninformative": 1.35557,
+  "state_response_predictive": {
+   "activation": 0.092839,
+   "expected_value": 0.1,
+   "uncertainty": 0.0,
+   "affiliation": 0.089618
+  },
+  "state_response_uninformative": {
+   "activation": -0.055732,
+   "expected_value": -0.085714,
+   "uncertainty": -0.021429,
+   "affiliation": -0.02163
+  },
+  "end_state_predictive": {
+   "activation": 0.705854491,
+   "expected_value": 0.907895224,
+   "uncertainty": 0.201804842,
+   "affiliation": 1.0
+  },
+  "end_state_uninformative": {
+   "activation": 0.467194436,
+   "expected_value": 0.21828521,
+   "uncertainty": 0.208793926,
+   "affiliation": 0.245723191
+  },
+  "mean_score_predictive": 0.705555,
+  "mean_score_uninformative": 0.357619
+ },
+ "narrative": "[templated summary, not model-generated] Same phrase, same probe state and RNG. Predictive history: P(pattern 2)=1.00, entropy 0.01. Uninformative history: P(pattern 2)=0.26, entropy 1.36. Constructed by the training schedule."
+}

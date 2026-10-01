@@ -5,13 +5,34 @@ import { CONDITION_DEFS, PERTURBATION_DEFS } from '../lib/definitions'
 import { fmt, humanise } from '../lib/format'
 import { KindTag } from './KindTag'
 
-function renderValue(v: unknown): string {
-  if (typeof v === 'number') return fmt(v, 3)
+function scalar(v: unknown): string {
+  if (typeof v === 'number') return Number.isInteger(v) ? String(v) : fmt(v, 3)
   if (typeof v === 'boolean') return v ? 'yes' : 'no'
-  if (Array.isArray(v)) return v.map((x) => (typeof x === 'number' ? fmt(x, 3) : String(x))).join(', ')
   if (v === null || v === undefined) return '—'
-  if (typeof v === 'object') return JSON.stringify(v)
   return String(v)
+}
+
+/** Readable rendering of preset comparison values (numbers, arrays, nested dicts). */
+function ValueView({ k, v }: { k: string; v: unknown }) {
+  if (Array.isArray(v)) {
+    const probs = /prob/i.test(k)
+    return <span className="mono">{v.map((x, i) => (probs ? `#${i} ${scalar(x)}` : scalar(x))).join(probs ? ' · ' : ', ')}</span>
+  }
+  if (v && typeof v === 'object') {
+    return (
+      <dl className="kv kv--nested">
+        {Object.entries(v as Record<string, unknown>).map(([kk, vv]) => (
+          <div key={kk} className="kv__pair">
+            <dt>{kk}</dt>
+            <dd>
+              <ValueView k={kk} v={vv} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+  return <span className="mono">{scalar(v)}</span>
 }
 
 function ComparisonTable() {
@@ -30,8 +51,12 @@ function ComparisonTable() {
         <tbody>
           {entries.map(([k, v]) => (
             <tr key={k}>
-              <th scope="row">{labels[k] ?? humanise(k)}</th>
-              <td className="mono">{renderValue(v)}</td>
+              <th scope="row" title={k}>
+                {labels[k] ?? humanise(k)}
+              </th>
+              <td>
+                <ValueView k={k} v={v} />
+              </td>
             </tr>
           ))}
         </tbody>

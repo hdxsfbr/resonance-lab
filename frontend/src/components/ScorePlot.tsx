@@ -8,7 +8,8 @@ const PAD = { l: 30, r: 8, t: 8, b: 24 }
 
 export function ScorePlot() {
   const { state } = useLab()
-  const scores = state.session?.metrics.score_history ?? []
+  const history = state.session?.metrics.score_history
+  const scores = useMemo(() => history ?? [], [history])
   const roll = useMemo(() => rollingMean(scores, 20), [scores])
   const [hover, setHover] = useState<number | null>(null)
   const [ref, size] = useSize<HTMLDivElement>({ width: 300, height: 170 })

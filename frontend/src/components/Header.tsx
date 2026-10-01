@@ -168,7 +168,7 @@ export function Header() {
         <span className="meta">
           <span className="meta__k">preset</span> <span className="meta__v">{s?.preset ?? '—'}</span>
         </span>
-        <span className="meta">
+        <span className="meta meta--session">
           <span className="meta__k">session</span> <span className="meta__v mono">{s?.id ?? '—'}</span>
         </span>
         <ConfigPopover />

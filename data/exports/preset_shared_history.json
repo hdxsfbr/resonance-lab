@@ -1,0 +1,65 @@
+{
+ "preset": "shared_history",
+ "seed": 7,
+ "sessions": [
+  {
+   "id": "375d4d8e4e30",
+   "created_at": "2026-10-01T06:50:10.385+00:00",
+   "mode": "live",
+   "preset": "shared_history",
+   "seed": 7,
+   "condition": {
+    "name": "full",
+    "perturbation": "none",
+    "description": "Full model: learning, episodic memory, state updates and state-to-policy coupling on; music channel."
+   },
+   "step": 120,
+   "status": "finished"
+  }
+ ],
+ "comparison": {
+  "receiver_id": "B",
+  "probe_motif": 1,
+  "probe_phrase_id": "probe-120-m1",
+  "probe_target": 0,
+  "trained_probs": [
+   0.152027,
+   0.176823,
+   0.587355,
+   0.083794
+  ],
+  "trained_top": 2,
+  "reset_probs": [
+   0.25,
+   0.25,
+   0.25,
+   0.25
+  ],
+  "reset_top": 0,
+  "entropy_trained": 1.113043,
+  "entropy_reset": 1.386294,
+  "state_delta_trained": {
+   "activation": -0.063263,
+   "expected_value": -0.073203,
+   "uncertainty": -0.031782,
+   "affiliation": -0.036929
+  },
+  "state_delta_reset": {
+   "activation": -0.100597,
+   "expected_value": -0.119869,
+   "uncertainty": 0.038218,
+   "affiliation": -0.064929
+  },
+  "trained_choice": 2,
+  "reset_choice": 3,
+  "trained_score": 0.333333,
+  "reset_score": 0.1,
+  "state_at_probe": {
+   "activation": 0.601523755,
+   "expected_value": 0.681224776,
+   "uncertainty": 0.460428214,
+   "affiliation": 0.564304404
+  }
+ },
+ "narrative": "[templated summary, not model-generated] Probe motif 1 (most often followed by success, pattern 0). Trained receiver: top=2, entropy=1.11; reset clone: top=0, entropy=1.39. Same phrase, state and RNG draw."
+}

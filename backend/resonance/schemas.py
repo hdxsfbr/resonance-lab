@@ -20,7 +20,7 @@ quantities with the operational definitions given on `StateVector`.
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -170,10 +170,11 @@ class PhraseFeatures(BaseModel):
 class StateVector(BaseModel):
     """Bounded engineered state. Operational definitions:
 
-    activation      [0,1]  drive/arousal-like scalar. Raised by dense/loud input (if the
-                           hand-authored acoustic influence is enabled) and by surprising
-                           outcomes; decays toward baseline. Modulates expressive tempo/velocity
-                           and exploration temperature when coupling is enabled.
+    activation      [0,1]  drive-like scalar. Raised by dense/loud input (if the hand-authored
+                           acoustic influence is enabled) and by better-than-expected outcomes,
+                           lowered by worse-than-expected ones (signed prediction error); decays
+                           toward baseline. Modulates expressive tempo/velocity and exploration
+                           temperature when coupling is enabled.
     expected_value  [0,1]  running expectation of the coordination score.
     uncertainty     [0,1]  running magnitude of recent prediction error.
     affiliation    [-1,1]  running credit toward the partner: rises with shared success,
@@ -378,7 +379,7 @@ class ModelConfig(BaseModel):
     n_threads: int = 4
 
 
-class ConditionName(str, Enum):
+class ConditionName(StrEnum):
     full = "full"
     no_history = "no_history"
     state_fixed = "state_fixed"

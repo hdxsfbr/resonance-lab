@@ -94,6 +94,8 @@ export interface EpisodeRecord {
   stateChanges: Record<string, StateChange>
   modelCalls: Event[]
   narratives: Event[]
+  /** A human supplied the phrase (POST human_phrase); senderId may then name the agent whose turn it was. */
+  human: boolean
   complete: boolean
 }
 
@@ -114,6 +116,7 @@ export function emptyEpisode(step: number): EpisodeRecord {
     stateChanges: {},
     modelCalls: [],
     narratives: [],
+    human: false,
     complete: false,
   }
 }
@@ -157,6 +160,7 @@ export function foldEvent(map: Map<number, EpisodeRecord>, e: Event): void {
     case 'target_assigned': {
       const tid = num(p.target_id) ?? num(p.target)
       if (tid !== null) ep.targetId = tid
+      if (p.sender === 'human') ep.human = true
       if (e.agent_id && !ep.senderId) ep.senderId = e.agent_id
       break
     }
@@ -165,6 +169,7 @@ export function foldEvent(map: Map<number, EpisodeRecord>, e: Event): void {
       if (ph) {
         ep.phrase = ph
         ep.motifId = ph.motif_id ?? ep.motifId
+        if (ph.origin?.kind === 'human') ep.human = true
       }
       ep.motifIndex = num(p.motif_index) ?? num(p.motif) ?? ep.motifIndex
       ep.motifId = str(p.motif_id) ?? ep.motifId
@@ -257,6 +262,11 @@ export function statePointsFromEvents(events: readonly Event[]): Record<string, 
     ;(out[e.agent_id] ??= []).push({ step: e.step, state: after })
   }
   return out
+}
+
+/** Display name of an episode's sender ('human' for human_phrase episodes). */
+export function senderLabel(ep: Pick<EpisodeRecord, 'human' | 'senderId'>, nameOf: (id: string | null) => string): string {
+  return ep.human ? 'human' : nameOf(ep.senderId)
 }
 
 export function narrativeText(e: Event): string {

@@ -201,39 +201,58 @@ function ModelCalls({ ep, agentId }: { ep: EpisodeRecord | null; agentId: string
       <p className="tiny">GENERATED — model output, not a measurement. Never read by the state update or the scoring.</p>
       {calls.length === 0 && <p className="muted small">No model calls for this agent in this step (policy is local).</p>}
       {calls.map((c) => {
-        const p = (c.payload ?? {}) as {
-          request?: { input_modality?: string; system_prompt?: string; user_prompt?: string; purpose?: string }
-          response?: { ok?: boolean; parsed?: unknown; latency_ms?: number; error?: string | null; provider?: string; model_id?: string; content?: string }
-        }
+        // Tolerant of both the backend shape (top-level purpose/provider/input_modality, request.system/user)
+        // and a ModelRequest/ModelResponse-shaped payload.
+        const p = (c.payload ?? {}) as Record<string, unknown>
+        const req = (p.request ?? {}) as Record<string, unknown>
+        const res = (p.response ?? {}) as Record<string, unknown>
+        const pick = (...xs: unknown[]) => xs.find((x) => x !== undefined && x !== null)
+        const purpose = pick(p.purpose, req.purpose)
+        const modality = pick(p.input_modality, req.input_modality)
+        const provider = pick(p.provider, res.provider)
+        const model = pick(p.model_id, res.model_id)
+        const ok = pick(p.ok, res.ok)
+        const latency = pick(res.latency_ms, p.latency_ms)
+        const error = pick(res.error, p.error, p.validation_error)
+        const prompt = [pick(req.system, req.system_prompt), pick(req.user, req.user_prompt)].filter(Boolean).join('\n\n')
+        const tested = pick(p.tested_in_this_environment, res.tested_in_this_environment)
         return (
           <div key={c.seq} className="modelcall">
             <dl className="kv kv--inline">
               <dt>purpose</dt>
-              <dd>{p.request?.purpose ?? '—'}</dd>
+              <dd>{String(purpose ?? '—')}</dd>
               <dt>input modality</dt>
-              <dd>{p.request?.input_modality ?? '—'}</dd>
+              <dd>{String(modality ?? '—')}</dd>
               <dt>provider</dt>
               <dd>
-                {p.response?.provider ?? '—'} {p.response?.model_id ?? ''}
+                {String(provider ?? '—')} {model ? String(model) : ''}
               </dd>
               <dt>latency</dt>
-              <dd className="mono">{p.response?.latency_ms !== undefined ? `${fmt(p.response.latency_ms, 0)} ms` : '—'}</dd>
+              <dd className="mono">{typeof latency === 'number' ? `${fmt(latency, 0)} ms` : '—'}</dd>
               <dt>ok</dt>
-              <dd>{p.response?.ok === undefined ? '—' : p.response.ok ? 'yes' : 'no'}</dd>
-              {p.response?.error && (
+              <dd>{ok === undefined ? '—' : ok ? 'yes' : 'no'}</dd>
+              <dt>tested here</dt>
+              <dd>{tested === undefined ? '—' : tested ? 'yes' : 'no (untested against live service)'}</dd>
+              {p.fallback_used !== undefined && (
                 <>
-                  <dt>error</dt>
-                  <dd className="warn">{p.response.error}</dd>
+                  <dt>fallback to local</dt>
+                  <dd>{p.fallback_used ? 'yes' : 'no'}</dd>
                 </>
               )}
+              {error ? (
+                <>
+                  <dt>error</dt>
+                  <dd className="warn">{String(error)}</dd>
+                </>
+              ) : null}
             </dl>
             <details>
               <summary className="small">Prompt text</summary>
-              <pre className="json">{`${p.request?.system_prompt ?? ''}\n\n${p.request?.user_prompt ?? ''}`}</pre>
+              <pre className="json">{prompt || '(none recorded)'}</pre>
             </details>
             <details open>
               <summary className="small">Parsed JSON</summary>
-              <pre className="json">{JSON.stringify(p.response?.parsed ?? null, null, 1)}</pre>
+              <pre className="json">{JSON.stringify(pick(res.parsed, p.parsed) ?? null, null, 1)}</pre>
             </details>
           </div>
         )
@@ -280,7 +299,7 @@ export function Inspector() {
   if (!open || !s || !agentId) return null
   const agent = s.agents.find((a) => a.id === agentId)
   if (!agent) return null
-  const role = ep ? (ep.senderId === agentId ? 'sender' : ep.receiverId === agentId ? 'receiver' : null) : null
+  const role = ep ? (ep.senderId === agentId && !ep.human ? 'sender' : ep.receiverId === agentId ? 'receiver' : null) : null
   const trace = role === 'sender' ? (ep?.senderTrace ?? null) : role === 'receiver' ? (ep?.receiverTrace ?? null) : null
   const patternNames = state.patterns.map((p) => `#${p.id} ${p.name}`)
   const motifNames = Array.from({ length: agent.learner.sender_values[0]?.length ?? 0 }, (_, i) => `m${i}`)
@@ -359,7 +378,11 @@ export function Inspector() {
           <h4>
             Learned associations <KindTag kind="learned" />
           </h4>
-          <p className="tiny muted">Current values after {agent.learner.updates} updates (not historical).</p>
+          <p className="tiny muted">
+            {s.mode === 'replay'
+              ? 'REPLAY: learned weights cannot be rebuilt from the event log; values below are the recorded run’s final values (if the data source provides them).'
+              : `Current values after ${agent.learner.updates} updates (not historical).`}
+          </p>
           <Heatmap rows={patternNames} cols={featureCols} values={weights} mode="diverging" caption="Receiver weights W[pattern][feature] (+ bias)" cell={14} />
           <Heatmap
             rows={patternNames}

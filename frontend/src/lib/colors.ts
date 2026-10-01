@@ -48,8 +48,3 @@ export function diverging(t: number): string {
   const c = Math.max(-1, Math.min(1, t))
   return c < 0 ? mix(DIV_MID, DIV_NEG, -c) : mix(DIV_MID, DIV_POS, c)
 }
-
-/** Readable ink for text drawn on a fill. */
-export function inkOn(): string {
-  return '#ffffff'
-}

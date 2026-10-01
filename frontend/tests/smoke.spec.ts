@@ -28,7 +28,7 @@ test('lab smoke (mock mode)', async ({ page }) => {
   // step 3 times
   for (let i = 1; i <= 3; i++) {
     await page.getByTestId('step').click()
-    await expect(page.getByTestId('episode-counter')).toContainText(String(i))
+    await expect(page.getByTestId('episode-counter')).toHaveText(new RegExp(`^\\s*${i}\\s*/`))
   }
   await expect(page.getByTestId('timeline-row')).toHaveCount(3)
   await expect(page.getByTestId('piano-roll')).toBeVisible()

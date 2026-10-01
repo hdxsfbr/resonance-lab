@@ -131,8 +131,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get Session */
-        get: operations["get_session_api_sessions__session_id__get"];
+        /** Get Session Route */
+        get: operations["get_session_route_api_sessions__session_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -422,8 +422,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Model Status */
-        get: operations["model_status_api_model_status_get"];
+        /** Model Status Route */
+        get: operations["model_status_route_api_model_status_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -866,17 +866,17 @@ export interface components {
             enabled: boolean;
             /**
              * Receiver Learning Rate
-             * @default 0.15
+             * @default 0.3
              */
             receiver_learning_rate: number;
             /**
              * Sender Learning Rate
-             * @default 0.2
+             * @default 0.3
              */
             sender_learning_rate: number;
             /**
              * Temperature Base
-             * @default 0.35
+             * @default 0.12
              */
             temperature_base: number;
             /**
@@ -887,7 +887,7 @@ export interface components {
             /**
              * Optimistic Init
              * @description Initial sender Q value
-             * @default 0.5
+             * @default 0
              */
             optimistic_init: number;
             /**
@@ -1371,6 +1371,9 @@ export interface components {
         RunPresetRequest: {
             /** Seed */
             seed?: number | null;
+            config?: components["schemas"]["ExperimentConfig"] | null;
+            /** Episodes */
+            episodes?: number | null;
         };
         /** SavedMotif */
         SavedMotif: {
@@ -1553,10 +1556,11 @@ export interface components {
          * StateVector
          * @description Bounded engineered state. Operational definitions:
          *
-         *     activation      [0,1]  drive/arousal-like scalar. Raised by dense/loud input (if the
-         *                            hand-authored acoustic influence is enabled) and by surprising
-         *                            outcomes; decays toward baseline. Modulates expressive tempo/velocity
-         *                            and exploration temperature when coupling is enabled.
+         *     activation      [0,1]  drive-like scalar. Raised by dense/loud input (if the hand-authored
+         *                            acoustic influence is enabled) and by better-than-expected outcomes,
+         *                            lowered by worse-than-expected ones (signed prediction error); decays
+         *                            toward baseline. Modulates expressive tempo/velocity and exploration
+         *                            temperature when coupling is enabled.
          *     expected_value  [0,1]  running expectation of the coordination score.
          *     uncertainty     [0,1]  running magnitude of recent prediction error.
          *     affiliation    [-1,1]  running credit toward the partner: rises with shared success,
@@ -1922,7 +1926,7 @@ export interface operations {
             };
         };
     };
-    get_session_api_sessions__session_id__get: {
+    get_session_route_api_sessions__session_id__get: {
         parameters: {
             query?: never;
             header?: never;
@@ -2521,7 +2525,7 @@ export interface operations {
             };
         };
     };
-    model_status_api_model_status_get: {
+    model_status_route_api_model_status_get: {
         parameters: {
             query?: never;
             header?: never;

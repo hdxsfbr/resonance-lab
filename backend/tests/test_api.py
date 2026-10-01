@@ -113,7 +113,9 @@ def test_presets_endpoints(client):
     presets = client.get("/api/presets").json()
     assert {p["name"] for p in presets} == {"first_encounter", "shared_history", "same_phrase_different_history"}
     assert all(p["evidence_criterion"] and p["manipulation"] for p in presets)
-    res = client.post("/api/presets/first_encounter/run", json={"seed": 3, "episodes": 12}).json()
+    cfg = client.get("/api/config/default").json()
+    cfg["episodes"] = 12
+    res = client.post("/api/presets/first_encounter/run", json={"seed": 3, "config": cfg}).json()
     assert res["preset"] == "first_encounter" and res["comparison"]["episodes"] == 12
     sid = res["sessions"][0]["id"]
     assert client.get(f"/api/sessions/{sid}").json()["step"] == 12

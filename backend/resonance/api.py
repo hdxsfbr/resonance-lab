@@ -169,7 +169,8 @@ def create_app(
         if name not in PRESETS:
             raise HTTPException(status_code=404, detail=f"unknown preset {name}")
         seed = req.seed if req.seed is not None else (req.config.seed if req.config else load_config().seed)
-        result, sessions = _guard(lambda: run_preset_sessions(name, seed, req.config, req.episodes))
+        episodes = req.episodes or (req.config.episodes if req.config else None)
+        result, sessions = _guard(lambda: run_preset_sessions(name, seed, req.config, episodes))
         for s in sessions:
             register(s)
         return result
@@ -178,7 +179,8 @@ def create_app(
     def create_session(req: S.CreateSessionRequest) -> S.SessionSnapshot:
         def build() -> Session:
             if req.preset:
-                config, condition, script = preset_session_config(req.preset, req.config)
+                episodes = req.config.episodes if req.config else None
+                config, condition, script = preset_session_config(req.preset, req.config, episodes)
                 return Session(config, condition, config.seed, preset=req.preset, script=script)
             config = req.config or load_config()
             return Session(config, with_description(req.condition), config.seed)
@@ -191,7 +193,8 @@ def create_app(
     def list_sessions() -> list[S.SessionSummary]:
         with lock:
             live = {sid: s.summary() for sid, s in registry.items()}
-        stored = [s for s in store.list_sessions() if s.id not in live]
+        # Stored sessions not in memory reopen as replay sessions; list them as such.
+        stored = [s.model_copy(update={"mode": "replay"}) for s in store.list_sessions() if s.id not in live]
         return sorted([*live.values(), *stored], key=lambda s: s.created_at, reverse=True)
 
     @app.get("/api/sessions/{session_id}", response_model=S.SessionSnapshot)

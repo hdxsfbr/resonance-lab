@@ -31,6 +31,7 @@ def test_export_import_replay(config, full):
         np.testing.assert_allclose(a.receiver_learner.W, b.receiver_learner.W, atol=1e-6)
         np.testing.assert_allclose(a.sender_learner.Q, b.sender_learner.Q, atol=1e-6)
         assert len(a.memory) == len(b.memory)
+        assert a.information_received == b.information_received
     snap_r, snap_s = r.snapshot(), s.snapshot()
     assert snap_r.metrics == snap_s.metrics and snap_r.current_episode == snap_s.current_episode
 

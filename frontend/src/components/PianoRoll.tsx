@@ -131,7 +131,7 @@ export function PianoRollPanel() {
   const target = state.patterns.find((p) => p.id === ep?.targetId) ?? null
   const chosen = state.patterns.find((p) => p.id === ep?.chosenId) ?? null
   const live = state.session && state.session.mode !== 'replay'
-  const senderName = state.session?.agents.find((a) => a.id === ep?.senderId)?.name ?? ep?.senderId ?? '—'
+  const senderName = ep?.human ? 'human' : (state.session?.agents.find((a) => a.id === ep?.senderId)?.name ?? ep?.senderId ?? '—')
   return (
     <section className="panel roll-panel" aria-label="Current phrase">
       <div className="panel__bar">
@@ -143,6 +143,21 @@ export function PianoRollPanel() {
             {senderName} · {phrase.instrument} · {fmt(phrase.tempo_bpm, 0)} bpm · {fmt(phrase.length_beats, 0)} beats · {fmt(phraseSeconds(phrase), 2)} s
             {phrase.motif_id ? ` · ${phrase.motif_id}` : ''}
             {phrase.origin?.kind && phrase.origin.kind !== 'agent' ? ` · origin ${phrase.origin.kind}${phrase.origin.transform ? ` (${phrase.origin.transform})` : ''}` : ''}
+          </span>
+        )}
+        {phrase && (
+          <span className="row" style={{ margin: 0 }}>
+            <button
+              type="button"
+              className="btn btn--tiny"
+              onClick={() => void actions.downloadWav(phrase)}
+              title={state.source.kind === 'mock' ? 'Download WAV — rendered in the browser with the same synth (mock data source)' : 'Download WAV — POST /api/phrases/render (server numpy synth)'}
+            >
+              ⤓ WAV
+            </button>
+            <button type="button" className="btn btn--tiny" onClick={() => actions.downloadPhraseJson(phrase)} title="Download the symbolic phrase as JSON">
+              ⤓ JSON
+            </button>
           </span>
         )}
         {differs && (
@@ -186,12 +201,6 @@ export function PianoRollPanel() {
                 ↻ Replay{live ? ' → next' : ''}
               </button>
             )}
-            <button type="button" className="btn btn--small" onClick={() => void actions.downloadWav(phrase)} title={state.source.kind === 'mock' ? 'Rendered in the browser (mock)' : 'POST /api/phrases/render (server synth)'}>
-              ⤓ WAV
-            </button>
-            <button type="button" className="btn btn--small" onClick={() => actions.downloadPhraseJson(phrase)}>
-              ⤓ JSON
-            </button>
           </>
         )}
       </div>

@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState } from 'react'
-import type { InterventionRecord } from '../api/events'
+import { senderLabel, type InterventionRecord } from '../api/events'
 import { useLab } from '../state/LabContext'
 import { INTERVENTION_DEFS } from '../lib/definitions'
 import type { InterventionKind } from '../api/types'
@@ -87,7 +87,7 @@ export function Timeline() {
                   >
                     <td className="mono">{ep.step}</td>
                     <td>
-                      {name(ep.senderId)} → {name(ep.receiverId)}
+                      {senderLabel(ep, name)} → {name(ep.receiverId)}
                     </td>
                     <td className="mono small">{ep.motifId ?? (ep.motifIndex !== null ? `m${ep.motifIndex}` : '—')}</td>
                     <td>{ep.phrase ? <MiniRoll phrase={ep.phrase} /> : '—'}</td>
