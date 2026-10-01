@@ -74,6 +74,21 @@ Screenshots from the live browser smoke test are in `docs/screenshots/`.
 Local experimental mode (default) needs no model. Model-assisted mode is optional; see
 [docs/MODEL_SETUP.md](docs/MODEL_SETUP.md).
 
+## Verification
+
+```bash
+make test-backend                                   # 144 unit + integration tests (3 slow local-model tests skipped with RESONANCE_SKIP_SLOW=1)
+make test-frontend                                  # 28 vitest tests
+make smoke                                          # Playwright flow in mock mode
+./start.sh &                                        # then, against the real server:
+cd frontend && SMOKE_BASE_URL=http://127.0.0.1:8000 LIVE_SMOKE=1 npx playwright test tests/live.spec.ts
+cd backend && .venv/bin/python scripts/model_e2e.py # real local-model session (needs models/*.gguf, see docs/MODEL_SETUP.md)
+```
+
+What was verified in the build session is recorded in [PROGRESS.md](PROGRESS.md). Audio was verified
+by rendering the browser's Web Audio engine offline to a non-silent WAV and by the server render; no one
+listened to it, so "sounds intentional" is a claim about the motif bank and synth spec, not a listening test.
+
 ## Documentation
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — how the pieces fit
