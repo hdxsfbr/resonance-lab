@@ -91,6 +91,7 @@ listened to it, so "sounds intentional" is a claim about the motif bank and synt
 
 ## Documentation
 
+- [docs/USER_MANUAL.md](docs/USER_MANUAL.md) — plain-language manual: what the lab is, every panel and button, how to read results
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — how the pieces fit
 - [docs/DEFINITIONS.md](docs/DEFINITIONS.md) — state variables, update rules, learned components
 - [docs/CONTRACTS.md](docs/CONTRACTS.md) — episode protocol, API, conditions, reset semantics
