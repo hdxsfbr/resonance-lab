@@ -1,0 +1,76 @@
+# Resonance Lab — default experiment configuration.
+# Every run records the effective configuration (this file + overrides) verbatim.
+# This is an ENGINEERED agent simulation. State variables are operational definitions.
+
+seed: 7
+episodes: 120
+
+state:
+  baseline: {activation: 0.5, expected_value: 0.5, uncertainty: 0.5, affiliation: 0.0}
+  inertia:  {activation: 0.6, expected_value: 0.8, uncertainty: 0.7, affiliation: 0.85}
+  decay:    {activation: 0.15, expected_value: 0.02, uncertainty: 0.05, affiliation: 0.03}
+  max_step: {activation: 0.3, expected_value: 0.3, uncertainty: 0.3, affiliation: 0.3}
+  # HAND-AUTHORED, switchable: dense/loud phrases push activation up. Not learned.
+  acoustic_activation_enabled: true
+  acoustic_activation_gain: 0.5
+  prediction_error_gain: {activation: 0.4, uncertainty: 1.0}
+  outcome_gain: {expected_value: 1.0, affiliation: 0.8}
+  partner_similarity_gain: 0.2
+
+coupling:
+  enabled: true
+  uncertainty_to_temperature: 1.0
+  activation_to_temperature: 0.6
+  activation_to_tempo: 0.3
+  activation_to_velocity: 30.0
+  affiliation_to_learning_rate: 0.5
+  temperature_min: 0.05
+  temperature_max: 5.0
+
+learning:
+  enabled: true
+  receiver_learning_rate: 0.15
+  sender_learning_rate: 0.2
+  temperature_base: 0.35
+  receiver_l2: 0.001
+  optimistic_init: 0.5
+  receiver_init_scale: 0.0
+
+memory:
+  capacity: 200
+  retrieval_k: 5
+
+music:
+  phrase_length_beats: 8.0
+  tempo_min: 80.0
+  tempo_max: 160.0
+  motif_bank: default
+  n_motifs: 8
+  feature_weights: {}
+  generation_noise: 0.05
+
+task:
+  kind: timing
+  n_patterns: 4
+  partial_credit: true
+
+# Optional model assistance. provider: none | scripted | llamacpp | anthropic | openai_compatible
+# The simulation's state transitions and measurements never depend on model prose.
+model:
+  provider: none
+  model_id: ""
+  base_url: null
+  api_key_env: ""          # name of the env var holding a key; never the key itself
+  timeout_seconds: 20.0
+  max_retries: 1
+  call_budget: 200
+  temperature: 0.2
+  use_for: []              # any of: sender, receiver, narrative
+  narrative_enabled: false
+  prompts_dir: prompts
+  local_model_path: models/qwen2.5-0.5b-instruct-q4_k_m.gguf
+  n_threads: 4
+
+agents:
+  - {id: A, name: Aria, color: "#7c9cff", instrument: pluck, sensitivity: 1.0, policy_kind: local}
+  - {id: B, name: Bram, color: "#ffb86b", instrument: marimba, sensitivity: 1.0, policy_kind: local}

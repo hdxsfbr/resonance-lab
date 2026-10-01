@@ -1,0 +1,22 @@
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+# node
+node_modules/
+frontend/dist/
+# runtime data
+data/*.db
+data/*.db-journal
+data/*.sqlite
+data/runs/
+models/*.gguf
+models/*.bin
+.env
+# misc
+.DS_Store
+*.log
+/tmp/
