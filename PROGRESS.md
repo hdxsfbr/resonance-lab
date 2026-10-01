@@ -43,13 +43,13 @@ resume point; update it at every checkpoint.
 - [x] Workspace inspected, toolchain verified, local model verified
 - [x] Contracts: `schemas.py`, `docs/CONTRACTS.md`, `config/default.yaml`, API signatures, generated TS types
 - [x] WS1 sim core — 143 tests pass (+3 slow llama); ruff clean; server verified end to end by orchestrator (health, step, isolation, reset_memory, WAV, export/import)
-- [ ] WS2 frontend (lab screen, audio, piano roll, plots, controls, interventions, inspector, experiments view)
+- [x] WS2 frontend — build 0 type errors (337 kB JS / 103 kB gzip), oxlint clean, vitest 28 passed, Playwright mock 3 passed; orchestrator re-ran everything
 - [x] WS3 research note, providers (llamacpp tested with real local call; anthropic/openai-compatible untested against live services, plumbing unit-tested), prompts, model setup docs — 56 tests pass (53 + 3 slow)
-- [ ] Integration: real API ↔ frontend, `make types` regenerated, `./start.sh` works
-- [ ] Browser smoke test (Playwright) at desktop size
+- [x] Integration: `make types` regenerated; `./start.sh` builds + serves on :8000 (root 200 text/html, /api/health ok); live Playwright flow passes against it; `set_param agents.N.sensitivity` now allowed (was the one contract gap)
+- [x] Browser smoke test (Playwright, Chromium 1440×900) against the REAL server: live.spec + smoke.spec pass, no console errors; screenshots inspected by the orchestrator (docs/screenshots/)
 - [x] Batch experiments run (6 conditions × 10 seeds, ablations, perturbations, 300-episode horizon, presets) → `data/exports/`, `docs/EXPERIMENT_REPORT.md`
-- [ ] README + architecture + definitions docs
-- [ ] Final verification against acceptance criteria
+- [x] README (five-minute guide matches real UI labels), ARCHITECTURE, DEFINITIONS, CONTROLS_AND_CONFOUNDS, RESEARCH_NOTES, MODEL_SETUP, EXPERIMENT_REPORT, SYNTH_SPEC
+- [x] Final verification against acceptance criteria (see Validation log; audio: WAV from the browser Web Audio engine and from the server are non-silent with note onsets; nobody in this session *heard* it)
 
 ## Blockers
 
@@ -57,7 +57,7 @@ None.
 
 ## Exact next action
 
-When WS2 reports: build frontend, run Playwright smoke against the REAL backend at 1440×900, fix integration issues, verify `./start.sh`, finalize README, push.
+Done for this session. Next experiments are listed in docs/EXPERIMENT_REPORT.md §6 (first: give episodic memory a direct route into receiver decisions).
 
 ## Commands
 
@@ -66,6 +66,8 @@ When WS2 reports: build frontend, run Playwright smoke against the REAL backend 
 - `make test` / `make smoke` / `make types` / `make experiments`
 
 ## Validation log
+
+- 2026-10-01 07:20 — Final: backend `RESONANCE_SKIP_SLOW=1 pytest` → 144 passed, 3 skipped; ruff clean. Frontend build OK, vitest 28 passed, oxlint clean. `./start.sh` (REBUILD=1) serves UI+API on :8000. Live Playwright against :8000 → 2 passed (live flow: enable audio, start preset, step ×3, fast run to 33, clear memory + disable coupling, inspector, timeline replay, compose + send as human, WAV download, experiment, export → import → REPLAY). API checks on live server: set_param agents.1.sensitivity → 0.3 applied; set_param seed → 400 structural; set_coupling A=false → trace coupling_enabled False. CLI reproducibility: seed 11 twice → identical 801-event exports; seed 12 differs. Browser-rendered WAV rms 0.049 / peak 0.295 (non-silent); server WAV rms 0.066.
 
 - 2026-10-01 06:55 — Orchestrator verification of WS1: `RESONANCE_SKIP_SLOW=1 pytest` → 143 passed, 3 skipped (12 s); ruff clean after StrEnum fix. Live uvicorn on :8011: health ok; create+step 3 → 30 events, receiver observation has no target; reset_memory → memory 0, state unchanged; render → 200 audio/wav 237,744 B; export 32 events → import → mode replay.
 - 2026-10-01 06:58 — Real local-model session (llamacpp, agent B receiver, budget 3): 2 model_call events ok, modality symbolic_features, ~10 s each, no "target" in receiver prompt, no env values in export. Script: backend/scripts/model_e2e.py.

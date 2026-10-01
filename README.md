@@ -23,7 +23,7 @@ from prior work.
 
 ## Quick start
 
-Requirements: Python 3.11+, Node 22+, `uv` (optional; falls back to `python -m venv`).
+Requirements: Python 3.11+, Node 22+, `uv` (optional; falls back to `python -m venv`). Tested on Linux.
 
 ```bash
 ./start.sh
@@ -42,23 +42,26 @@ make experiments  # headless multi-seed batch for all six conditions → data/ex
 
 ## Five-minute exploration
 
-1. Open the app, click **Enable audio** (browsers require a gesture before sound).
-2. Pick the **First encounter** preset and press **Start**. Two agents alternate as sender
-   and receiver. Each episode: the sender sees a private target rhythm, plays a phrase, the
-   receiver picks a rhythm, both get the same score. Watch the score climb (or not) and the
-   state bars move.
-3. Press **Pause**, then **Step** a few times. Open an agent's **Inspector**: state before →
-   after with the inputs that caused it, the retrieved memories, the learned weights, and the
-   policy's scores → probabilities with the effective temperature.
-4. Try an intervention: **Clear memory** on one agent (its learned associations vanish but its
-   state does not); **Reset state** (state returns to baseline, associations stay); **Freeze
-   state**; **Disable coupling** (state keeps evolving but can no longer influence actions —
-   the inspector's temperature column shows the change).
-5. Select an earlier exchange in the timeline and **Replay motif**: hear it again and, in a
-   live session, have the receiver actually receive it next step.
-6. Open **Experiments**, run all six conditions over five seeds (no audio), and read the
-   per-run points, not just the means.
-7. Compose a phrase in the **Phrase editor**, pick a target, and send it as a human.
+1. Open http://localhost:8000 and click **Enable audio** (browsers require a gesture before sound).
+2. On the start screen choose **First encounter → Start live session**. The badge in the header reads
+   **LIVE SIMULATION**. Press **▶ Start**. Two agents alternate as sender and receiver: each episode the
+   sender sees a private target rhythm, plays a phrase (you hear it, and see it on the piano roll), the
+   receiver picks a rhythm, and both get the same score. Watch the score plot and the four state bars.
+3. Press **Pause**, then **Step** a few times. Click **Inspect Aria** (or Bram): state before → after with
+   the inputs that caused it (the acoustic term is labelled *hand-authored*), the policy's scores →
+   probabilities with base and effective temperature, the learned weights, and the *information actually
+   received* panel, which confirms the receiver saw no target field.
+4. In the **Interventions** tab: **Clear memory** on one agent (its learned associations vanish, its state
+   bars do not move), **Reset state** (state returns to baseline, associations stay), tick **freeze
+   state**, or tick **disable coupling** and step once: the inspector's effective temperature now equals
+   the base temperature. Every intervention appears in the timeline with "effective from step N".
+5. Click **↻ Replay** on an earlier timeline row: the phrase plays again and is queued as the next sent
+   phrase, so the receiver really receives it.
+6. Open **Experiments**, keep all six conditions, enter five seeds and 120 episodes, and **Run experiment**
+   (no audio). Read the per-run dots, not just the means. Download the CSV.
+7. Open **Compose**, place a few notes on the keyboard or grid, choose a target, and **Send as human**.
+
+Screenshots from the live browser smoke test are in `docs/screenshots/`.
 
 ## Modes
 

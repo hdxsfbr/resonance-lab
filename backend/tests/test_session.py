@@ -107,3 +107,27 @@ def test_generated_narrative_is_logged_not_used(config, full):
     narr = [e for e in s.events if e.type == "generated_narrative"]
     assert len(narr) == 4 and all(e.payload["kind"] == "generated_narrative" and e.visibility == "experimenter" for e in narr)
     assert s.scores == plain.scores  # narrative never feeds back into the simulation
+
+
+def test_set_param_live_agent_sensitivity_allowed_but_agents_structural_otherwise():
+    """Spec: 'change sensitivity or state decay' must work live; other agents.* paths stay structural."""
+    from resonance.config import load_config
+    from resonance.schemas import ConditionSpec, Intervention
+    from resonance.session import Session
+
+    s = Session(load_config(), ConditionSpec(name="full"), seed=3)
+    s.step(2)
+    before = s.agents[1].params.sensitivity
+    s.intervene(Intervention(kind="set_param", path="agents.1.sensitivity", value=0.25))
+    assert s.agents[1].params.sensitivity == 0.25 != before
+    assert s.config.agents[1].sensitivity == 0.25
+    import pytest
+
+    with pytest.raises(ValueError):
+        s.intervene(Intervention(kind="set_param", path="agents.1.id", value="Z"))
+    with pytest.raises(ValueError):
+        s.intervene(Intervention(kind="set_param", path="seed", value=99))
+    # state decay remains live-tunable
+    s.intervene(Intervention(kind="set_param", path="state.decay.activation", value=0.5))
+    assert s.config.state.decay["activation"] == 0.5
+    s.step(2)

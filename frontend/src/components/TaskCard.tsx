@@ -54,12 +54,16 @@ export function TaskCard() {
               </div>
               <PatternGrid pattern={p} size={7} />
               <div className="taskpat__tags">
-                {isTarget && <span className="tag tag--target" title="Shown to the experimenter only; the receiver never sees it">target (private to sender)</span>}
-                {isChosen && <span className="tag tag--chosen">receiver's choice</span>}
+                {isTarget && <span className="tag tag--target" title="Target (private to sender): shown to the experimenter only; the receiver never sees it">target</span>}
+                {isChosen && <span className="tag tag--chosen" title="The receiver's chosen pattern">chosen</span>}
               </div>
             </div>
           )
         })}
+      </div>
+      <div className="muted small task__legend">
+        <span className="tag tag--target">target</span> is private to the sender (shown here for the experimenter only) ·{' '}
+        <span className="tag tag--chosen">chosen</span> is the receiver's pick
       </div>
       <div className="metrics" aria-label="Running metrics">
         <div className="metric">

@@ -41,7 +41,7 @@ PRESETS: dict[str, PresetInfo] = {
     "first_encounter": PresetInfo(
         name="first_encounter",
         title="First encounter",
-        summary="Two fresh agents with no shared history play the timing task for 60 episodes under the full condition.",
+        summary="Two fresh agents with no shared history play the timing task for 120 episodes under the full condition.",
         manipulation=(
             "None beyond starting from zero: receiver weights 0, sender Q = optimistic_init, empty episodic "
             "memory, engineered state at baseline."
@@ -52,7 +52,7 @@ PRESETS: dict[str, PresetInfo] = {
             "policy-shift KL > 0 shows the learned associations moved both policies. A curve flat at chance means "
             "no convention formed in this run."
         ),
-        default_episodes=60,
+        default_episodes=120,
         condition=ConditionSpec(name=ConditionName.full),
     ),
     "shared_history": PresetInfo(

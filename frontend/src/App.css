@@ -1129,6 +1129,11 @@
   right: 6px;
   display: flex;
   gap: 4px;
+  white-space: nowrap;
+}
+
+.task__legend {
+  margin: 4px 2px 6px;
 }
 
 .taskpat__tags .tag {

@@ -16,6 +16,7 @@ Same seed + same config => identical event payloads (timestamps `t` aside).
 
 from __future__ import annotations
 
+import re
 import uuid
 from collections import defaultdict
 from collections.abc import Callable
@@ -602,19 +603,30 @@ class Session:
         return phrase.model_copy(update={"id": f"motif-{make_motif_id(idx, self.config.music.motif_bank)}"})
 
     def _set_param(self, path: str, value: Any) -> None:
-        if any(path == p or path.startswith(p + ".") for p in STRUCTURAL_PATHS):
+        # Live-tunable per-agent knobs are allowed even though `agents` is otherwise structural.
+        live_agent_param = re.fullmatch(r"agents\.(\d+)\.(sensitivity)", path) is not None
+        if not live_agent_param and any(path == p or path.startswith(p + ".") for p in STRUCTURAL_PATHS):
             raise ValueError(f"'{path}' is structural; reset the session with a new config instead")
         data = self.config.model_dump(mode="json")
-        node = data
+        node: Any = data
         parts = path.split(".")
         for part in parts[:-1]:
-            if not isinstance(node.get(part), dict):
+            if isinstance(node, list) and part.isdigit() and int(part) < len(node):
+                node = node[int(part)]
+            elif isinstance(node, dict) and isinstance(node.get(part), dict | list):
+                node = node[part]
+            else:
                 raise ValueError(f"invalid config path {path!r}")
-            node = node[part]
-        node[parts[-1]] = value
+        if isinstance(node, dict):
+            node[parts[-1]] = value
+        else:
+            raise ValueError(f"invalid config path {path!r}")
         self.config = ExperimentConfig.model_validate(data)  # re-validate the whole config
         self.settings = effective_settings(self.condition, self.config)
+        by_id = {p.id: p for p in self.config.agents}
         for a in self.agents:
+            if live_agent_param and a.id in by_id:
+                a.params = by_id[a.id]  # sensitivity is read live from params at each state update
             a.memory.set_capacity(self.settings["memory_capacity"])
             if path.startswith("coupling.enabled"):
                 a.coupling_enabled = self.settings["coupling_enabled"]
