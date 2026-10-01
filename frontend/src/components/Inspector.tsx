@@ -302,8 +302,14 @@ export function Inspector() {
   const role = ep ? (ep.senderId === agentId && !ep.human ? 'sender' : ep.receiverId === agentId ? 'receiver' : null) : null
   const trace = role === 'sender' ? (ep?.senderTrace ?? null) : role === 'receiver' ? (ep?.receiverTrace ?? null) : null
   const patternNames = state.patterns.map((p) => `#${p.id} ${p.name}`)
-  const motifNames = Array.from({ length: agent.learner.sender_values[0]?.length ?? 0 }, (_, i) => `m${i}`)
-  const featureCols = [...FEATURE_NAMES.slice(0, agent.learner.receiver_weights[0]?.length ?? 16), 'bias']
+  const motifNames = Array.from({ length: agent.learner.sender_values[0]?.length ?? 0 }, (_, i) => state.motifs[i]?.motif_id ?? `m${i}`)
+  const inputDim = agent.learner.receiver_weights[0]?.length ?? FEATURE_NAMES.length
+  const symbolInput = s.condition.name === 'symbol'
+  // symbol condition: the receiver's input is a one-hot of the sender's motif index, not phi(phrase)
+  const featureCols = [
+    ...Array.from({ length: inputDim }, (_, i) => (symbolInput ? (i < motifNames.length ? `symbol ${motifNames[i]}` : `unused ${i}`) : (FEATURE_NAMES[i] ?? `x${i}`))),
+    'bias',
+  ]
   const weights = agent.learner.receiver_weights.map((row, i) => [...row, agent.learner.receiver_bias[i] ?? 0])
   return (
     <aside className="drawer" role="dialog" aria-label={`Inspector for ${agent.name}`} data-testid="inspector">
@@ -383,7 +389,7 @@ export function Inspector() {
               ? 'REPLAY: learned weights cannot be rebuilt from the event log; values below are the recorded run’s final values (if the data source provides them).'
               : `Current values after ${agent.learner.updates} updates (not historical).`}
           </p>
-          <Heatmap rows={patternNames} cols={featureCols} values={weights} mode="diverging" caption="Receiver weights W[pattern][feature] (+ bias)" cell={14} />
+          <Heatmap rows={patternNames} cols={featureCols} values={weights} mode="diverging" caption={symbolInput ? 'Receiver weights W[pattern][symbol] (+ bias) — one-hot symbol input' : 'Receiver weights W[pattern][feature] (+ bias)'} cell={14} />
           <Heatmap
             rows={patternNames}
             cols={motifNames}

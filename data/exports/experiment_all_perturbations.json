@@ -1,0 +1,3459 @@
+{
+ "id": "bf499a363409",
+ "name": "all_perturbations",
+ "created_at": "2026-10-01T06:52:18.604+00:00",
+ "config": {
+  "seed": 7,
+  "episodes": 120,
+  "state": {
+   "baseline": {
+    "activation": 0.5,
+    "expected_value": 0.5,
+    "uncertainty": 0.5,
+    "affiliation": 0.0
+   },
+   "inertia": {
+    "activation": 0.6,
+    "expected_value": 0.8,
+    "uncertainty": 0.7,
+    "affiliation": 0.85
+   },
+   "decay": {
+    "activation": 0.15,
+    "expected_value": 0.02,
+    "uncertainty": 0.05,
+    "affiliation": 0.03
+   },
+   "max_step": {
+    "activation": 0.3,
+    "expected_value": 0.3,
+    "uncertainty": 0.3,
+    "affiliation": 0.3
+   },
+   "acoustic_activation_enabled": true,
+   "acoustic_activation_gain": 0.5,
+   "prediction_error_gain": {
+    "activation": 0.4,
+    "uncertainty": 1.0
+   },
+   "outcome_gain": {
+    "expected_value": 1.0,
+    "affiliation": 0.8
+   },
+   "partner_similarity_gain": 0.2
+  },
+  "coupling": {
+   "enabled": true,
+   "uncertainty_to_temperature": 1.0,
+   "activation_to_temperature": 0.6,
+   "activation_to_tempo": 0.3,
+   "activation_to_velocity": 30.0,
+   "affiliation_to_learning_rate": 0.5,
+   "temperature_min": 0.05,
+   "temperature_max": 5.0
+  },
+  "learning": {
+   "enabled": true,
+   "receiver_learning_rate": 0.3,
+   "sender_learning_rate": 0.3,
+   "temperature_base": 0.12,
+   "receiver_l2": 0.001,
+   "optimistic_init": 0.0,
+   "receiver_init_scale": 0.0
+  },
+  "memory": {
+   "capacity": 200,
+   "retrieval_k": 5
+  },
+  "music": {
+   "phrase_length_beats": 8.0,
+   "tempo_min": 80.0,
+   "tempo_max": 160.0,
+   "motif_bank": "default",
+   "n_motifs": 8,
+   "feature_weights": {},
+   "generation_noise": 0.05
+  },
+  "task": {
+   "kind": "timing",
+   "n_patterns": 4,
+   "partial_credit": true
+  },
+  "model": {
+   "provider": "none",
+   "model_id": "",
+   "base_url": null,
+   "api_key_env": "",
+   "timeout_seconds": 20.0,
+   "max_retries": 1,
+   "call_budget": 200,
+   "temperature": 0.2,
+   "use_for": [],
+   "narrative_enabled": false,
+   "prompts_dir": "prompts",
+   "local_model_path": "models/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+   "n_threads": 4
+  },
+  "agents": [
+   {
+    "id": "A",
+    "name": "Aria",
+    "color": "#7c9cff",
+    "instrument": "pluck",
+    "baseline_override": null,
+    "sensitivity": 1.0,
+    "policy_kind": "local"
+   },
+   {
+    "id": "B",
+    "name": "Bram",
+    "color": "#ffb86b",
+    "instrument": "marimba",
+    "baseline_override": null,
+    "sensitivity": 1.0,
+    "policy_kind": "local"
+   }
+  ]
+ },
+ "runs": [
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.516468,
+   "final_block_score": 0.611905,
+   "first_block_score": 0.351786,
+   "success_rate": 0.441667,
+   "learning_curve": [
+    0.355952,
+    0.347619,
+    0.552778,
+    0.344841,
+    0.514286,
+    0.497222,
+    0.619444,
+    0.70873,
+    0.692857,
+    0.530952
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.626023,
+    "A_sender": 1.535192,
+    "B_receiver": 0.900392,
+    "B_sender": 0.867945
+   },
+   "state_effect_persistence": {
+    "A": 8.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.676362,
+    "A_unfamiliar": 0.683895,
+    "B_familiar": 0.803373,
+    "B_unfamiliar": 0.865497
+   },
+   "generalization_score": 0.791667,
+   "state_similarity": 0.694962,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.371124,
+    "A_final_expected_value": 0.475904,
+    "A_final_uncertainty": 0.533993,
+    "A_final_affiliation": 0.426289,
+    "B_final_activation": 0.454238,
+    "B_final_expected_value": 0.475904,
+    "B_final_uncertainty": 0.533993,
+    "B_final_affiliation": 0.425992
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.29873,
+   "final_block_score": 0.444643,
+   "first_block_score": 0.122619,
+   "success_rate": 0.216667,
+   "learning_curve": [
+    0.080556,
+    0.164683,
+    0.266667,
+    0.442857,
+    0.319841,
+    0.186508,
+    0.197619,
+    0.439286,
+    0.372619,
+    0.516667
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.671134,
+    "A_sender": 1.03913,
+    "B_receiver": 0.847279,
+    "B_sender": 0.552109
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.758781,
+    "A_unfamiliar": 0.775364,
+    "B_familiar": 0.80378,
+    "B_unfamiliar": 0.805691
+   },
+   "generalization_score": 0.479762,
+   "state_similarity": 0.664687,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.57155,
+    "A_final_expected_value": 0.411756,
+    "A_final_uncertainty": 0.493351,
+    "A_final_affiliation": -0.29341,
+    "B_final_activation": 0.499696,
+    "B_final_expected_value": 0.411756,
+    "B_final_uncertainty": 0.493351,
+    "B_final_affiliation": -0.294257
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.451746,
+   "final_block_score": 0.44881,
+   "first_block_score": 0.367857,
+   "success_rate": 0.383333,
+   "learning_curve": [
+    0.34246,
+    0.393254,
+    0.45,
+    0.472222,
+    0.33373,
+    0.477778,
+    0.627778,
+    0.522619,
+    0.328175,
+    0.569444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.560058,
+    "A_sender": 1.030515,
+    "B_receiver": 0.665787,
+    "B_sender": 1.195951
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.643477,
+    "A_unfamiliar": 0.642871,
+    "B_familiar": 0.726137,
+    "B_unfamiliar": 0.704779
+   },
+   "generalization_score": 0.608333,
+   "state_similarity": 0.805005,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.514767,
+    "A_final_expected_value": 0.617933,
+    "A_final_uncertainty": 0.494151,
+    "A_final_affiliation": 0.145441,
+    "B_final_activation": 0.6127,
+    "B_final_expected_value": 0.617933,
+    "B_final_uncertainty": 0.494151,
+    "B_final_affiliation": 0.145272
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.643294,
+   "final_block_score": 0.591667,
+   "first_block_score": 0.63373,
+   "success_rate": 0.591667,
+   "learning_curve": [
+    0.711111,
+    0.556349,
+    0.689286,
+    0.619444,
+    0.792063,
+    0.650794,
+    0.666667,
+    0.563889,
+    0.572222,
+    0.611111
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.86715,
+    "A_sender": 1.460907,
+    "B_receiver": 0.63512,
+    "B_sender": 1.508513
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.798922,
+    "A_unfamiliar": 0.810706,
+    "B_familiar": 0.683201,
+    "B_unfamiliar": 0.691777
+   },
+   "generalization_score": 0.791667,
+   "state_similarity": 0.862272,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.531559,
+    "A_final_expected_value": 0.584136,
+    "A_final_uncertainty": 0.510699,
+    "A_final_affiliation": 0.548257,
+    "B_final_activation": 0.472793,
+    "B_final_expected_value": 0.584136,
+    "B_final_uncertainty": 0.510699,
+    "B_final_affiliation": 0.549663
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.582936,
+   "final_block_score": 0.691865,
+   "first_block_score": 0.249603,
+   "success_rate": 0.508333,
+   "learning_curve": [
+    0.276191,
+    0.223016,
+    0.794444,
+    0.627778,
+    0.738889,
+    0.41746,
+    0.734127,
+    0.63373,
+    0.627778,
+    0.755952
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.655093,
+    "A_sender": 1.773093,
+    "B_receiver": 0.504637,
+    "B_sender": 1.693701
+   },
+   "state_effect_persistence": {
+    "A": 9.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.713628,
+    "A_unfamiliar": 0.738686,
+    "B_familiar": 0.612854,
+    "B_unfamiliar": 0.633515
+   },
+   "generalization_score": 0.604762,
+   "state_similarity": 0.88146,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.388345,
+    "A_final_expected_value": 0.688916,
+    "A_final_uncertainty": 0.442672,
+    "A_final_affiliation": 0.778767,
+    "B_final_activation": 0.455082,
+    "B_final_expected_value": 0.688916,
+    "B_final_uncertainty": 0.442672,
+    "B_final_affiliation": 0.7777
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.499444,
+   "final_block_score": 0.805555,
+   "first_block_score": 0.228968,
+   "success_rate": 0.433333,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.434127,
+    0.406349,
+    0.375,
+    0.505555,
+    0.487302,
+    0.717063,
+    0.777778,
+    0.833333
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.865132,
+    "A_sender": 1.205764,
+    "B_receiver": 0.783958,
+    "B_sender": 1.034142
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.825093,
+    "A_unfamiliar": 0.844223,
+    "B_familiar": 0.787206,
+    "B_unfamiliar": 0.748137
+   },
+   "generalization_score": 0.583333,
+   "state_similarity": 0.828075,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.547239,
+    "A_final_expected_value": 0.726583,
+    "A_final_uncertainty": 0.369549,
+    "A_final_affiliation": 0.867921,
+    "B_final_activation": 0.476231,
+    "B_final_expected_value": 0.726583,
+    "B_final_uncertainty": 0.369549,
+    "B_final_affiliation": 0.871406
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.451667,
+   "final_block_score": 0.639286,
+   "first_block_score": 0.480952,
+   "success_rate": 0.366667,
+   "learning_curve": [
+    0.389682,
+    0.572222,
+    0.411508,
+    0.328175,
+    0.275794,
+    0.553968,
+    0.239683,
+    0.467064,
+    0.675,
+    0.603571
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.28887,
+    "A_sender": 1.494208,
+    "B_receiver": 0.927739,
+    "B_sender": 0.705521
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.531335,
+    "A_unfamiliar": 0.532416,
+    "B_familiar": 0.821942,
+    "B_unfamiliar": 0.831559
+   },
+   "generalization_score": 0.833333,
+   "state_similarity": 0.843836,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.598155,
+    "A_final_expected_value": 0.580288,
+    "A_final_uncertainty": 0.400068,
+    "A_final_affiliation": 0.201481,
+    "B_final_activation": 0.521081,
+    "B_final_expected_value": 0.580288,
+    "B_final_uncertainty": 0.400068,
+    "B_final_affiliation": 0.202102
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.549206,
+   "final_block_score": 0.682143,
+   "first_block_score": 0.257937,
+   "success_rate": 0.508333,
+   "learning_curve": [
+    0.128572,
+    0.387302,
+    0.616667,
+    0.488889,
+    0.767857,
+    0.470635,
+    0.678571,
+    0.589286,
+    0.419841,
+    0.944444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.799455,
+    "A_sender": 1.363582,
+    "B_receiver": 1.060284,
+    "B_sender": 1.753222
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.777563,
+    "A_unfamiliar": 0.755293,
+    "B_familiar": 0.884304,
+    "B_unfamiliar": 0.843128
+   },
+   "generalization_score": 0.6375,
+   "state_similarity": 0.7601,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.776126,
+    "A_final_expected_value": 0.91734,
+    "A_final_uncertainty": 0.185919,
+    "A_final_affiliation": 0.811066,
+    "B_final_activation": 0.552486,
+    "B_final_expected_value": 0.91734,
+    "B_final_uncertainty": 0.185919,
+    "B_final_affiliation": 0.810439
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.51623,
+   "final_block_score": 0.704365,
+   "first_block_score": 0.423611,
+   "success_rate": 0.458333,
+   "learning_curve": [
+    0.497222,
+    0.35,
+    0.297619,
+    0.489683,
+    0.402778,
+    0.470635,
+    0.620238,
+    0.625397,
+    0.719444,
+    0.689286
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.759212,
+    "A_sender": 1.136312,
+    "B_receiver": 0.572602,
+    "B_sender": 1.396867
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.745369,
+    "A_unfamiliar": 0.750021,
+    "B_familiar": 0.661824,
+    "B_unfamiliar": 0.676296
+   },
+   "generalization_score": 0.533929,
+   "state_similarity": 0.818392,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.553075,
+    "A_final_expected_value": 0.538328,
+    "A_final_uncertainty": 0.509623,
+    "A_final_affiliation": 0.658759,
+    "B_final_activation": 0.507036,
+    "B_final_expected_value": 0.538328,
+    "B_final_uncertainty": 0.509623,
+    "B_final_affiliation": 0.658677
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "episodes": 120,
+   "mean_score": 0.496587,
+   "final_block_score": 0.672421,
+   "first_block_score": 0.450198,
+   "success_rate": 0.441667,
+   "learning_curve": [
+    0.23373,
+    0.666667,
+    0.438889,
+    0.318254,
+    0.494841,
+    0.467064,
+    0.616667,
+    0.384921,
+    0.497222,
+    0.847619
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.710747,
+    "A_sender": 1.344273,
+    "B_receiver": 0.792368,
+    "B_sender": 1.70178
+   },
+   "state_effect_persistence": {
+    "A": 10.0,
+    "B": 6.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.706294,
+    "A_unfamiliar": 0.736035,
+    "B_familiar": 0.773522,
+    "B_unfamiliar": 0.768313
+   },
+   "generalization_score": 0.7625,
+   "state_similarity": 0.797339,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.417854,
+    "A_final_expected_value": 0.730897,
+    "A_final_uncertainty": 0.410941,
+    "A_final_affiliation": 0.572198,
+    "B_final_activation": 0.320889,
+    "B_final_expected_value": 0.730897,
+    "B_final_uncertainty": 0.410941,
+    "B_final_affiliation": 0.571311
+   }
+  },
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.507024,
+   "final_block_score": 0.65496,
+   "first_block_score": 0.397619,
+   "success_rate": 0.416667,
+   "learning_curve": [
+    0.364286,
+    0.430952,
+    0.636111,
+    0.344841,
+    0.516667,
+    0.358333,
+    0.542063,
+    0.567063,
+    0.656746,
+    0.653175
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.852357,
+    "A_sender": 1.114654,
+    "B_receiver": 0.828495,
+    "B_sender": 1.576258
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.80386,
+    "A_unfamiliar": 0.800275,
+    "B_familiar": 0.801732,
+    "B_unfamiliar": 0.795086
+   },
+   "generalization_score": 0.608333,
+   "state_similarity": 0.897848,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.654313,
+    "A_final_expected_value": 0.784908,
+    "A_final_uncertainty": 0.37731,
+    "A_final_affiliation": 0.502887,
+    "B_final_activation": 0.655585,
+    "B_final_expected_value": 0.784908,
+    "B_final_uncertainty": 0.37731,
+    "B_final_affiliation": 0.517942
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.366984,
+   "final_block_score": 0.520833,
+   "first_block_score": 0.10873,
+   "success_rate": 0.283333,
+   "learning_curve": [
+    0.080556,
+    0.136905,
+    0.266667,
+    0.442857,
+    0.347619,
+    0.353175,
+    0.394444,
+    0.605952,
+    0.441667,
+    0.6
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 1.032092,
+    "A_sender": 1.058313,
+    "B_receiver": 0.992187,
+    "B_sender": 0.809424
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.884295,
+    "A_unfamiliar": 0.87994,
+    "B_familiar": 0.879545,
+    "B_unfamiliar": 0.886969
+   },
+   "generalization_score": 0.479762,
+   "state_similarity": 0.779457,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.547506,
+    "A_final_expected_value": 0.534669,
+    "A_final_uncertainty": 0.50428,
+    "A_final_affiliation": 0.078616,
+    "B_final_activation": 0.593198,
+    "B_final_expected_value": 0.534669,
+    "B_final_uncertainty": 0.50428,
+    "B_final_affiliation": 0.083064
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.470198,
+   "final_block_score": 0.711111,
+   "first_block_score": 0.367857,
+   "success_rate": 0.416667,
+   "learning_curve": [
+    0.34246,
+    0.393254,
+    0.394444,
+    0.527778,
+    0.301191,
+    0.303572,
+    0.45,
+    0.567063,
+    0.702778,
+    0.719444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.67533,
+    "A_sender": 1.178569,
+    "B_receiver": 0.816689,
+    "B_sender": 1.508203
+   },
+   "state_effect_persistence": {
+    "A": 11.0,
+    "B": 9.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.720403,
+    "A_unfamiliar": 0.7335,
+    "B_familiar": 0.759551,
+    "B_unfamiliar": 0.724574
+   },
+   "generalization_score": 0.666667,
+   "state_similarity": 0.79714,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.466097,
+    "A_final_expected_value": 0.599028,
+    "A_final_uncertainty": 0.491539,
+    "A_final_affiliation": 0.526378,
+    "B_final_activation": 0.413035,
+    "B_final_expected_value": 0.599028,
+    "B_final_uncertainty": 0.491539,
+    "B_final_affiliation": 0.52624
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.579564,
+   "final_block_score": 0.601389,
+   "first_block_score": 0.511706,
+   "success_rate": 0.533333,
+   "learning_curve": [
+    0.711111,
+    0.312302,
+    0.534524,
+    0.525,
+    0.847619,
+    0.686905,
+    0.569841,
+    0.405556,
+    0.75,
+    0.452778
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.925719,
+    "A_sender": 1.006712,
+    "B_receiver": 0.616067,
+    "B_sender": 1.546904
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 10.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.828959,
+    "A_unfamiliar": 0.830583,
+    "B_familiar": 0.664654,
+    "B_unfamiliar": 0.63273
+   },
+   "generalization_score": 0.75,
+   "state_similarity": 0.910526,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.553196,
+    "A_final_expected_value": 0.508681,
+    "A_final_uncertainty": 0.546496,
+    "A_final_affiliation": 0.494256,
+    "B_final_activation": 0.443972,
+    "B_final_expected_value": 0.508681,
+    "B_final_uncertainty": 0.546496,
+    "B_final_affiliation": 0.489388
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.532619,
+   "final_block_score": 0.639087,
+   "first_block_score": 0.249603,
+   "success_rate": 0.466667,
+   "learning_curve": [
+    0.276191,
+    0.223016,
+    0.636111,
+    0.711111,
+    0.738889,
+    0.334127,
+    0.564683,
+    0.563889,
+    0.655556,
+    0.622619
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.612799,
+    "A_sender": 1.979911,
+    "B_receiver": 1.000681,
+    "B_sender": 1.124168
+   },
+   "state_effect_persistence": {
+    "A": 6.0,
+    "B": 0.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.670902,
+    "A_unfamiliar": 0.720666,
+    "B_familiar": 0.853634,
+    "B_unfamiliar": 0.879125
+   },
+   "generalization_score": 0.717262,
+   "state_similarity": 0.833318,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.319045,
+    "A_final_expected_value": 0.451191,
+    "A_final_uncertainty": 0.491505,
+    "A_final_affiliation": 0.523254,
+    "B_final_activation": 0.228889,
+    "B_final_expected_value": 0.451191,
+    "B_final_uncertainty": 0.491505,
+    "B_final_affiliation": 0.529709
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.510794,
+   "final_block_score": 0.865278,
+   "first_block_score": 0.228968,
+   "success_rate": 0.441667,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.434127,
+    0.406349,
+    0.383333,
+    0.430555,
+    0.605952,
+    0.659127,
+    0.841667,
+    0.888889
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.74876,
+    "A_sender": 1.188988,
+    "B_receiver": 0.80193,
+    "B_sender": 1.433286
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.756594,
+    "A_unfamiliar": 0.741293,
+    "B_familiar": 0.780466,
+    "B_unfamiliar": 0.746163
+   },
+   "generalization_score": 0.679167,
+   "state_similarity": 0.82771,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.535178,
+    "A_final_expected_value": 0.862498,
+    "A_final_uncertainty": 0.265728,
+    "A_final_affiliation": 0.927548,
+    "B_final_activation": 0.573363,
+    "B_final_expected_value": 0.862498,
+    "B_final_uncertainty": 0.265728,
+    "B_final_affiliation": 0.93507
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.562857,
+   "final_block_score": 0.607143,
+   "first_block_score": 0.517262,
+   "success_rate": 0.491667,
+   "learning_curve": [
+    0.467063,
+    0.56746,
+    0.586508,
+    0.430952,
+    0.494841,
+    0.597619,
+    0.766667,
+    0.503175,
+    0.550397,
+    0.663889
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.807072,
+    "A_sender": 1.22949,
+    "B_receiver": 0.524539,
+    "B_sender": 1.307394
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.782211,
+    "A_unfamiliar": 0.775099,
+    "B_familiar": 0.639944,
+    "B_unfamiliar": 0.676763
+   },
+   "generalization_score": 0.720833,
+   "state_similarity": 0.809578,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.517444,
+    "A_final_expected_value": 0.681225,
+    "A_final_uncertainty": 0.460428,
+    "A_final_affiliation": 0.56011,
+    "B_final_activation": 0.596744,
+    "B_final_expected_value": 0.681225,
+    "B_final_uncertainty": 0.460428,
+    "B_final_affiliation": 0.564954
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.574206,
+   "final_block_score": 0.72381,
+   "first_block_score": 0.257937,
+   "success_rate": 0.541667,
+   "learning_curve": [
+    0.128572,
+    0.387302,
+    0.616667,
+    0.488889,
+    0.690476,
+    0.470635,
+    0.678571,
+    0.833333,
+    0.525,
+    0.922619
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.803311,
+    "A_sender": 1.518258,
+    "B_receiver": 1.085199,
+    "B_sender": 1.807202
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.772615,
+    "A_unfamiliar": 0.758892,
+    "B_familiar": 0.879885,
+    "B_unfamiliar": 0.855106
+   },
+   "generalization_score": 0.6375,
+   "state_similarity": 0.836939,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.764267,
+    "A_final_expected_value": 0.915377,
+    "A_final_uncertainty": 0.191612,
+    "A_final_affiliation": 0.974616,
+    "B_final_activation": 0.671238,
+    "B_final_expected_value": 0.915377,
+    "B_final_uncertainty": 0.191612,
+    "B_final_affiliation": 0.972087
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.570516,
+   "final_block_score": 0.726786,
+   "first_block_score": 0.465278,
+   "success_rate": 0.508333,
+   "learning_curve": [
+    0.580556,
+    0.35,
+    0.375,
+    0.567064,
+    0.663889,
+    0.575794,
+    0.466667,
+    0.672619,
+    0.792063,
+    0.661508
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.59101,
+    "A_sender": 1.543713,
+    "B_receiver": 0.93417,
+    "B_sender": 1.135368
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.665763,
+    "A_unfamiliar": 0.687729,
+    "B_familiar": 0.833792,
+    "B_unfamiliar": 0.807035
+   },
+   "generalization_score": 0.688095,
+   "state_similarity": 0.884452,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.559949,
+    "A_final_expected_value": 0.565872,
+    "A_final_uncertainty": 0.487426,
+    "A_final_affiliation": 0.84107,
+    "B_final_activation": 0.522642,
+    "B_final_expected_value": 0.565872,
+    "B_final_uncertainty": 0.487426,
+    "B_final_affiliation": 0.837453
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "episodes": 120,
+   "mean_score": 0.539405,
+   "final_block_score": 0.638095,
+   "first_block_score": 0.491865,
+   "success_rate": 0.483333,
+   "learning_curve": [
+    0.23373,
+    0.75,
+    0.430556,
+    0.340079,
+    0.490079,
+    0.542064,
+    0.541667,
+    0.789683,
+    0.569841,
+    0.706349
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.744057,
+    "A_sender": 1.211249,
+    "B_receiver": 0.765279,
+    "B_sender": 1.588323
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.728312,
+    "A_unfamiliar": 0.750787,
+    "B_familiar": 0.77497,
+    "B_unfamiliar": 0.771736
+   },
+   "generalization_score": 0.708333,
+   "state_similarity": 0.774171,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.602486,
+    "A_final_expected_value": 0.781038,
+    "A_final_uncertainty": 0.369792,
+    "A_final_affiliation": 0.571021,
+    "B_final_activation": 0.699987,
+    "B_final_expected_value": 0.781038,
+    "B_final_uncertainty": 0.369792,
+    "B_final_affiliation": 0.566038
+   }
+  },
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.556429,
+   "final_block_score": 0.639286,
+   "first_block_score": 0.397619,
+   "success_rate": 0.483333,
+   "learning_curve": [
+    0.364286,
+    0.430952,
+    0.636111,
+    0.344841,
+    0.680952,
+    0.497222,
+    0.764286,
+    0.567063,
+    0.659127,
+    0.619444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.661481,
+    "A_sender": 1.127118,
+    "B_receiver": 0.718132,
+    "B_sender": 1.640458
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.730121,
+    "A_unfamiliar": 0.745119,
+    "B_familiar": 0.757422,
+    "B_unfamiliar": 0.761562
+   },
+   "generalization_score": 0.720833,
+   "state_similarity": 0.840475,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.719945,
+    "A_final_expected_value": 0.749899,
+    "A_final_uncertainty": 0.376651,
+    "A_final_affiliation": 0.667613,
+    "B_final_activation": 0.718306,
+    "B_final_expected_value": 0.749899,
+    "B_final_uncertainty": 0.376651,
+    "B_final_affiliation": 0.667487
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.371706,
+   "final_block_score": 0.548611,
+   "first_block_score": 0.122619,
+   "success_rate": 0.283333,
+   "learning_curve": [
+    0.080556,
+    0.164683,
+    0.266667,
+    0.442857,
+    0.319841,
+    0.353175,
+    0.386111,
+    0.605952,
+    0.469444,
+    0.627778
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 1.060533,
+    "A_sender": 1.053315,
+    "B_receiver": 0.794944,
+    "B_sender": 0.806446
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.908277,
+    "A_unfamiliar": 0.931768,
+    "B_familiar": 0.783645,
+    "B_unfamiliar": 0.795094
+   },
+   "generalization_score": 0.479762,
+   "state_similarity": 0.759177,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.863716,
+    "A_final_expected_value": 0.601935,
+    "A_final_uncertainty": 0.404366,
+    "A_final_affiliation": 0.202634,
+    "B_final_activation": 0.733181,
+    "B_final_expected_value": 0.601935,
+    "B_final_uncertainty": 0.404366,
+    "B_final_affiliation": 0.194418
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.505992,
+   "final_block_score": 0.706944,
+   "first_block_score": 0.367857,
+   "success_rate": 0.458333,
+   "learning_curve": [
+    0.34246,
+    0.393254,
+    0.45,
+    0.527778,
+    0.309524,
+    0.323016,
+    0.533333,
+    0.766667,
+    0.786111,
+    0.627778
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.698643,
+    "A_sender": 1.188263,
+    "B_receiver": 0.727772,
+    "B_sender": 1.501585
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.736354,
+    "A_unfamiliar": 0.733931,
+    "B_familiar": 0.759977,
+    "B_unfamiliar": 0.720734
+   },
+   "generalization_score": 0.833333,
+   "state_similarity": 0.805038,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.61846,
+    "A_final_expected_value": 0.593603,
+    "A_final_uncertainty": 0.501022,
+    "A_final_affiliation": 0.666657,
+    "B_final_activation": 0.541821,
+    "B_final_expected_value": 0.593603,
+    "B_final_uncertainty": 0.501022,
+    "B_final_affiliation": 0.664174
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.586825,
+   "final_block_score": 0.511309,
+   "first_block_score": 0.511706,
+   "success_rate": 0.541667,
+   "learning_curve": [
+    0.711111,
+    0.312302,
+    0.534524,
+    0.525,
+    0.695238,
+    0.706349,
+    0.666667,
+    0.694444,
+    0.486508,
+    0.536111
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.676459,
+    "A_sender": 1.596614,
+    "B_receiver": 0.848365,
+    "B_sender": 1.104859
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.716584,
+    "A_unfamiliar": 0.726407,
+    "B_familiar": 0.815831,
+    "B_unfamiliar": 0.823545
+   },
+   "generalization_score": 0.791667,
+   "state_similarity": 0.847626,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.680508,
+    "A_final_expected_value": 0.555386,
+    "A_final_uncertainty": 0.51338,
+    "A_final_affiliation": 0.485085,
+    "B_final_activation": 0.543101,
+    "B_final_expected_value": 0.555386,
+    "B_final_uncertainty": 0.51338,
+    "B_final_affiliation": 0.495785
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.594048,
+   "final_block_score": 0.668254,
+   "first_block_score": 0.29127,
+   "success_rate": 0.533333,
+   "learning_curve": [
+    0.276191,
+    0.306349,
+    0.794444,
+    0.794444,
+    0.711111,
+    0.389683,
+    0.553968,
+    0.777778,
+    0.627778,
+    0.70873
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.642666,
+    "A_sender": 1.89169,
+    "B_receiver": 0.831348,
+    "B_sender": 1.325016
+   },
+   "state_effect_persistence": {
+    "A": 10.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.699053,
+    "A_unfamiliar": 0.716199,
+    "B_familiar": 0.804804,
+    "B_unfamiliar": 0.79775
+   },
+   "generalization_score": 0.883929,
+   "state_similarity": 0.765863,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.453274,
+    "A_final_expected_value": 0.641243,
+    "A_final_uncertainty": 0.484971,
+    "A_final_affiliation": 0.689238,
+    "B_final_activation": 0.503987,
+    "B_final_expected_value": 0.641243,
+    "B_final_uncertainty": 0.484971,
+    "B_final_affiliation": 0.685319
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.480119,
+   "final_block_score": 0.771032,
+   "first_block_score": 0.228968,
+   "success_rate": 0.408333,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.434127,
+    0.386905,
+    0.400397,
+    0.364286,
+    0.584127,
+    0.631349,
+    0.730556,
+    0.811508
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.700429,
+    "A_sender": 1.23987,
+    "B_receiver": 0.776347,
+    "B_sender": 1.088211
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.751886,
+    "A_unfamiliar": 0.786977,
+    "B_familiar": 0.772298,
+    "B_unfamiliar": 0.763025
+   },
+   "generalization_score": 0.583333,
+   "state_similarity": 0.804029,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.544406,
+    "A_final_expected_value": 0.670162,
+    "A_final_uncertainty": 0.450867,
+    "A_final_affiliation": 0.740217,
+    "B_final_activation": 0.53126,
+    "B_final_expected_value": 0.670162,
+    "B_final_uncertainty": 0.450867,
+    "B_final_affiliation": 0.760818
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.59381,
+   "final_block_score": 0.742063,
+   "first_block_score": 0.479762,
+   "success_rate": 0.533333,
+   "learning_curve": [
+    0.389682,
+    0.569841,
+    0.578175,
+    0.467064,
+    0.428175,
+    0.603572,
+    0.631349,
+    0.786111,
+    0.561508,
+    0.922619
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.938852,
+    "A_sender": 1.568008,
+    "B_receiver": 0.758306,
+    "B_sender": 1.369529
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.845176,
+    "A_unfamiliar": 0.840884,
+    "B_familiar": 0.744496,
+    "B_unfamiliar": 0.755761
+   },
+   "generalization_score": 0.717262,
+   "state_similarity": 0.766329,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.665526,
+    "A_final_expected_value": 0.918446,
+    "A_final_uncertainty": 0.185046,
+    "A_final_affiliation": 0.900746,
+    "B_final_activation": 0.632105,
+    "B_final_expected_value": 0.918446,
+    "B_final_uncertainty": 0.185046,
+    "B_final_affiliation": 0.896966
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.580833,
+   "final_block_score": 0.693056,
+   "first_block_score": 0.257937,
+   "success_rate": 0.541667,
+   "learning_curve": [
+    0.128572,
+    0.387302,
+    0.616667,
+    0.488889,
+    0.767857,
+    0.498413,
+    0.770238,
+    0.764286,
+    0.516667,
+    0.869444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.893479,
+    "A_sender": 1.335582,
+    "B_receiver": 0.723724,
+    "B_sender": 1.912185
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.781162,
+    "A_unfamiliar": 0.777544,
+    "B_familiar": 0.738159,
+    "B_unfamiliar": 0.707849
+   },
+   "generalization_score": 0.804167,
+   "state_similarity": 0.848582,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.835464,
+    "A_final_expected_value": 0.889424,
+    "A_final_uncertainty": 0.236861,
+    "A_final_affiliation": 0.920505,
+    "B_final_activation": 0.790475,
+    "B_final_expected_value": 0.889424,
+    "B_final_uncertainty": 0.236861,
+    "B_final_affiliation": 0.919804
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.458333,
+   "final_block_score": 0.517063,
+   "first_block_score": 0.447222,
+   "success_rate": 0.391667,
+   "learning_curve": [
+    0.525,
+    0.369444,
+    0.556349,
+    0.498413,
+    0.473016,
+    0.406746,
+    0.344841,
+    0.375397,
+    0.525,
+    0.509127
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.638966,
+    "A_sender": 1.054228,
+    "B_receiver": 0.590603,
+    "B_sender": 0.667702
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.694955,
+    "A_unfamiliar": 0.685809,
+    "B_familiar": 0.652473,
+    "B_unfamiliar": 0.642944
+   },
+   "generalization_score": 0.467262,
+   "state_similarity": 0.799465,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.552242,
+    "A_final_expected_value": 0.434664,
+    "A_final_uncertainty": 0.480491,
+    "A_final_affiliation": 0.047467,
+    "B_final_activation": 0.518992,
+    "B_final_expected_value": 0.434664,
+    "B_final_uncertainty": 0.480491,
+    "B_final_affiliation": 0.05082
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "episodes": 120,
+   "mean_score": 0.556587,
+   "final_block_score": 0.580754,
+   "first_block_score": 0.450198,
+   "success_rate": 0.508333,
+   "learning_curve": [
+    0.23373,
+    0.666667,
+    0.428175,
+    0.627778,
+    0.711111,
+    0.572222,
+    0.539286,
+    0.625397,
+    0.375397,
+    0.786111
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.726344,
+    "A_sender": 1.331032,
+    "B_receiver": 1.172742,
+    "B_sender": 1.095469
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.721606,
+    "A_unfamiliar": 0.687452,
+    "B_familiar": 0.924985,
+    "B_unfamiliar": 0.901317
+   },
+   "generalization_score": 0.595833,
+   "state_similarity": 0.52064,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.685729,
+    "A_final_expected_value": 0.841661,
+    "A_final_uncertainty": 0.312208,
+    "A_final_affiliation": 0.477589,
+    "B_final_activation": 0.739583,
+    "B_final_expected_value": 0.841661,
+    "B_final_uncertainty": 0.312208,
+    "B_final_affiliation": 0.476949
+   }
+  },
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.507024,
+   "final_block_score": 0.65496,
+   "first_block_score": 0.397619,
+   "success_rate": 0.416667,
+   "learning_curve": [
+    0.364286,
+    0.430952,
+    0.636111,
+    0.344841,
+    0.516667,
+    0.358333,
+    0.542063,
+    0.567063,
+    0.656746,
+    0.653175
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.899603,
+    "A_sender": 1.114722,
+    "B_receiver": 0.730186,
+    "B_sender": 1.575661
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.831506,
+    "A_unfamiliar": 0.829923,
+    "B_familiar": 0.756705,
+    "B_unfamiliar": 0.744802
+   },
+   "generalization_score": 0.608333,
+   "state_similarity": 0.853196,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.671537,
+    "A_final_expected_value": 0.784908,
+    "A_final_uncertainty": 0.37731,
+    "A_final_affiliation": 0.515734,
+    "B_final_activation": 0.672149,
+    "B_final_expected_value": 0.784908,
+    "B_final_uncertainty": 0.37731,
+    "B_final_affiliation": 0.515317
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.344762,
+   "final_block_score": 0.483333,
+   "first_block_score": 0.122619,
+   "success_rate": 0.258333,
+   "learning_curve": [
+    0.080556,
+    0.164683,
+    0.266667,
+    0.442857,
+    0.319841,
+    0.269841,
+    0.247222,
+    0.689286,
+    0.469444,
+    0.497222
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.839109,
+    "A_sender": 1.158082,
+    "B_receiver": 0.744386,
+    "B_sender": 0.884472
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.818052,
+    "A_unfamiliar": 0.818578,
+    "B_familiar": 0.757347,
+    "B_unfamiliar": 0.767079
+   },
+   "generalization_score": 0.479762,
+   "state_similarity": 0.789217,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.566351,
+    "A_final_expected_value": 0.394133,
+    "A_final_uncertainty": 0.499758,
+    "A_final_affiliation": -0.063565,
+    "B_final_activation": 0.506344,
+    "B_final_expected_value": 0.394133,
+    "B_final_uncertainty": 0.499758,
+    "B_final_affiliation": -0.064199
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.479286,
+   "final_block_score": 0.527976,
+   "first_block_score": 0.367857,
+   "success_rate": 0.433333,
+   "learning_curve": [
+    0.34246,
+    0.393254,
+    0.45,
+    0.444444,
+    0.25873,
+    0.406349,
+    0.6,
+    0.841667,
+    0.6,
+    0.455952
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.881754,
+    "A_sender": 1.035464,
+    "B_receiver": 0.759988,
+    "B_sender": 1.261776
+   },
+   "state_effect_persistence": {
+    "A": 5.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.798152,
+    "A_unfamiliar": 0.786981,
+    "B_familiar": 0.778201,
+    "B_unfamiliar": 0.738323
+   },
+   "generalization_score": 0.563095,
+   "state_similarity": 0.838827,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.308725,
+    "A_final_expected_value": 0.529063,
+    "A_final_uncertainty": 0.505965,
+    "A_final_affiliation": 0.359412,
+    "B_final_activation": 0.490101,
+    "B_final_expected_value": 0.529063,
+    "B_final_uncertainty": 0.505965,
+    "B_final_affiliation": 0.348311
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.631984,
+   "final_block_score": 0.702778,
+   "first_block_score": 0.63373,
+   "success_rate": 0.575,
+   "learning_curve": [
+    0.711111,
+    0.556349,
+    0.611905,
+    0.392064,
+    0.792063,
+    0.680952,
+    0.619444,
+    0.550397,
+    0.730555,
+    0.675
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.872852,
+    "A_sender": 1.771534,
+    "B_receiver": 0.967972,
+    "B_sender": 1.517286
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.830826,
+    "A_unfamiliar": 0.812597,
+    "B_familiar": 0.857636,
+    "B_unfamiliar": 0.871778
+   },
+   "generalization_score": 0.7625,
+   "state_similarity": 0.77756,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.547822,
+    "A_final_expected_value": 0.649248,
+    "A_final_uncertainty": 0.493453,
+    "A_final_affiliation": 0.719375,
+    "B_final_activation": 0.54593,
+    "B_final_expected_value": 0.649248,
+    "B_final_uncertainty": 0.493453,
+    "B_final_affiliation": 0.718373
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.578571,
+   "final_block_score": 0.774008,
+   "first_block_score": 0.249603,
+   "success_rate": 0.516667,
+   "learning_curve": [
+    0.276191,
+    0.223016,
+    0.794444,
+    0.627778,
+    0.738889,
+    0.314683,
+    0.401587,
+    0.861111,
+    0.680952,
+    0.867063
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.725723,
+    "A_sender": 1.690242,
+    "B_receiver": 0.667752,
+    "B_sender": 1.683178
+   },
+   "state_effect_persistence": {
+    "A": 9.0,
+    "B": 10.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.759024,
+    "A_unfamiliar": 0.757766,
+    "B_familiar": 0.725789,
+    "B_unfamiliar": 0.714682
+   },
+   "generalization_score": 0.804167,
+   "state_similarity": 0.881728,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.3859,
+    "A_final_expected_value": 0.735397,
+    "A_final_uncertainty": 0.403327,
+    "A_final_affiliation": 0.903918,
+    "B_final_activation": 0.433295,
+    "B_final_expected_value": 0.735397,
+    "B_final_uncertainty": 0.403327,
+    "B_final_affiliation": 0.910696
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.500278,
+   "final_block_score": 0.805555,
+   "first_block_score": 0.228968,
+   "success_rate": 0.433333,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.434127,
+    0.406349,
+    0.375,
+    0.513889,
+    0.487302,
+    0.717063,
+    0.777778,
+    0.833333
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.893101,
+    "A_sender": 1.204753,
+    "B_receiver": 0.793303,
+    "B_sender": 1.034621
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.83875,
+    "A_unfamiliar": 0.855187,
+    "B_familiar": 0.805229,
+    "B_unfamiliar": 0.758265
+   },
+   "generalization_score": 0.583333,
+   "state_similarity": 0.83208,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.539887,
+    "A_final_expected_value": 0.726583,
+    "A_final_uncertainty": 0.369549,
+    "A_final_affiliation": 0.87834,
+    "B_final_activation": 0.47518,
+    "B_final_expected_value": 0.726583,
+    "B_final_uncertainty": 0.369549,
+    "B_final_affiliation": 0.879089
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.474286,
+   "final_block_score": 0.582341,
+   "first_block_score": 0.520833,
+   "success_rate": 0.4,
+   "learning_curve": [
+    0.469444,
+    0.572222,
+    0.503175,
+    0.430952,
+    0.419841,
+    0.447619,
+    0.45873,
+    0.276191,
+    0.63373,
+    0.530952
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.623905,
+    "A_sender": 1.259203,
+    "B_receiver": 0.631874,
+    "B_sender": 1.088234
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 15.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.687594,
+    "A_unfamiliar": 0.695552,
+    "B_familiar": 0.703672,
+    "B_unfamiliar": 0.711868
+   },
+   "generalization_score": 0.563095,
+   "state_similarity": 0.785032,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.703899,
+    "A_final_expected_value": 0.629703,
+    "A_final_uncertainty": 0.475927,
+    "A_final_affiliation": 0.057836,
+    "B_final_activation": 0.71555,
+    "B_final_expected_value": 0.629703,
+    "B_final_uncertainty": 0.475927,
+    "B_final_affiliation": 0.062142
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.524206,
+   "final_block_score": 0.543254,
+   "first_block_score": 0.257937,
+   "success_rate": 0.483333,
+   "learning_curve": [
+    0.128572,
+    0.387302,
+    0.616667,
+    0.488889,
+    0.767857,
+    0.498413,
+    0.678571,
+    0.589286,
+    0.336508,
+    0.75
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.692505,
+    "A_sender": 1.362244,
+    "B_receiver": 0.971823,
+    "B_sender": 1.279823
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.711902,
+    "A_unfamiliar": 0.723649,
+    "B_familiar": 0.860514,
+    "B_unfamiliar": 0.807292
+   },
+   "generalization_score": 0.6375,
+   "state_similarity": 0.794078,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.713021,
+    "A_final_expected_value": 0.809371,
+    "A_final_uncertainty": 0.360161,
+    "A_final_affiliation": 0.514497,
+    "B_final_activation": 0.553772,
+    "B_final_expected_value": 0.809371,
+    "B_final_uncertainty": 0.360161,
+    "B_final_affiliation": 0.515131
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.601111,
+   "final_block_score": 0.711706,
+   "first_block_score": 0.423611,
+   "success_rate": 0.55,
+   "learning_curve": [
+    0.497222,
+    0.35,
+    0.375,
+    0.489683,
+    0.636111,
+    0.617063,
+    0.622619,
+    1.0,
+    0.714683,
+    0.70873
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.768327,
+    "A_sender": 1.862,
+    "B_receiver": 1.043599,
+    "B_sender": 1.237586
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.768056,
+    "A_unfamiliar": 0.762977,
+    "B_familiar": 0.903123,
+    "B_unfamiliar": 0.862217
+   },
+   "generalization_score": 0.688095,
+   "state_similarity": 0.843984,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.507664,
+    "A_final_expected_value": 0.706523,
+    "A_final_uncertainty": 0.432917,
+    "A_final_affiliation": 0.922,
+    "B_final_activation": 0.612895,
+    "B_final_expected_value": 0.706523,
+    "B_final_uncertainty": 0.432917,
+    "B_final_affiliation": 0.922
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "episodes": 120,
+   "mean_score": 0.522937,
+   "final_block_score": 0.789087,
+   "first_block_score": 0.450198,
+   "success_rate": 0.466667,
+   "learning_curve": [
+    0.23373,
+    0.666667,
+    0.438889,
+    0.318254,
+    0.494841,
+    0.467064,
+    0.616667,
+    0.415079,
+    0.655556,
+    0.922619
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.70585,
+    "A_sender": 1.897954,
+    "B_receiver": 0.889904,
+    "B_sender": 1.726842
+   },
+   "state_effect_persistence": {
+    "A": 8.0,
+    "B": 2.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.690111,
+    "A_unfamiliar": 0.721725,
+    "B_familiar": 0.796945,
+    "B_unfamiliar": 0.814629
+   },
+   "generalization_score": 0.875,
+   "state_similarity": 0.811261,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.370997,
+    "A_final_expected_value": 0.760293,
+    "A_final_uncertainty": 0.374025,
+    "A_final_affiliation": 0.827973,
+    "B_final_activation": 0.264741,
+    "B_final_expected_value": 0.760293,
+    "B_final_uncertainty": 0.374025,
+    "B_final_affiliation": 0.835184
+   }
+  },
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.50619,
+   "final_block_score": 0.65496,
+   "first_block_score": 0.393452,
+   "success_rate": 0.416667,
+   "learning_curve": [
+    0.355952,
+    0.430952,
+    0.636111,
+    0.344841,
+    0.516667,
+    0.358333,
+    0.542063,
+    0.567063,
+    0.656746,
+    0.653175
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.907461,
+    "A_sender": 1.114587,
+    "B_receiver": 0.67965,
+    "B_sender": 1.576131
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.832844,
+    "A_unfamiliar": 0.829603,
+    "B_familiar": 0.728713,
+    "B_unfamiliar": 0.716798
+   },
+   "generalization_score": 0.608333,
+   "state_similarity": 0.85503,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.671537,
+    "A_final_expected_value": 0.784908,
+    "A_final_uncertainty": 0.37731,
+    "A_final_affiliation": 0.522228,
+    "B_final_activation": 0.672149,
+    "B_final_expected_value": 0.784908,
+    "B_final_uncertainty": 0.37731,
+    "B_final_affiliation": 0.520696
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.352262,
+   "final_block_score": 0.534722,
+   "first_block_score": 0.122619,
+   "success_rate": 0.266667,
+   "learning_curve": [
+    0.080556,
+    0.164683,
+    0.266667,
+    0.442857,
+    0.319841,
+    0.269841,
+    0.302778,
+    0.605952,
+    0.469444,
+    0.6
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 1.064842,
+    "A_sender": 1.035273,
+    "B_receiver": 0.84957,
+    "B_sender": 0.810778
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.901997,
+    "A_unfamiliar": 0.896397,
+    "B_familiar": 0.777942,
+    "B_unfamiliar": 0.801019
+   },
+   "generalization_score": 0.483333,
+   "state_similarity": 0.768515,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.665419,
+    "A_final_expected_value": 0.535264,
+    "A_final_uncertainty": 0.504365,
+    "A_final_affiliation": 0.106038,
+    "B_final_activation": 0.567159,
+    "B_final_expected_value": 0.535264,
+    "B_final_uncertainty": 0.504365,
+    "B_final_affiliation": 0.100792
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.448373,
+   "final_block_score": 0.511111,
+   "first_block_score": 0.367857,
+   "success_rate": 0.383333,
+   "learning_curve": [
+    0.34246,
+    0.393254,
+    0.45,
+    0.472222,
+    0.33373,
+    0.386111,
+    0.525,
+    0.55873,
+    0.619444,
+    0.402778
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.8371,
+    "A_sender": 0.760584,
+    "B_receiver": 0.516786,
+    "B_sender": 1.175441
+   },
+   "state_effect_persistence": {
+    "A": 3.0,
+    "B": 10.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.800046,
+    "A_unfamiliar": 0.799725,
+    "B_familiar": 0.640287,
+    "B_unfamiliar": 0.619478
+   },
+   "generalization_score": 0.483333,
+   "state_similarity": 0.751635,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.279062,
+    "A_final_expected_value": 0.447952,
+    "A_final_uncertainty": 0.481918,
+    "A_final_affiliation": 0.092296,
+    "B_final_activation": 0.448345,
+    "B_final_expected_value": 0.447952,
+    "B_final_uncertainty": 0.481918,
+    "B_final_affiliation": 0.092657
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.624802,
+   "final_block_score": 0.586309,
+   "first_block_score": 0.63373,
+   "success_rate": 0.575,
+   "learning_curve": [
+    0.711111,
+    0.556349,
+    0.689286,
+    0.53373,
+    0.686905,
+    0.631349,
+    0.591667,
+    0.675,
+    0.722222,
+    0.450397
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.837692,
+    "A_sender": 1.264207,
+    "B_receiver": 0.776464,
+    "B_sender": 1.553723
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.769568,
+    "A_unfamiliar": 0.756373,
+    "B_familiar": 0.736674,
+    "B_unfamiliar": 0.746537
+   },
+   "generalization_score": 0.708333,
+   "state_similarity": 0.897724,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.577231,
+    "A_final_expected_value": 0.545892,
+    "A_final_uncertainty": 0.536067,
+    "A_final_affiliation": 0.621572,
+    "B_final_activation": 0.520358,
+    "B_final_expected_value": 0.545892,
+    "B_final_uncertainty": 0.536067,
+    "B_final_affiliation": 0.621426
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.507738,
+   "final_block_score": 0.483929,
+   "first_block_score": 0.249603,
+   "success_rate": 0.433333,
+   "learning_curve": [
+    0.276191,
+    0.223016,
+    0.794444,
+    0.627778,
+    0.711111,
+    0.323016,
+    0.659127,
+    0.494841,
+    0.514286,
+    0.453571
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.704731,
+    "A_sender": 1.648789,
+    "B_receiver": 0.537415,
+    "B_sender": 1.370326
+   },
+   "state_effect_persistence": {
+    "A": 2.0,
+    "B": 8.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.728945,
+    "A_unfamiliar": 0.754869,
+    "B_familiar": 0.640541,
+    "B_unfamiliar": 0.599418
+   },
+   "generalization_score": 0.675595,
+   "state_similarity": 0.902109,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.264815,
+    "A_final_expected_value": 0.368654,
+    "A_final_uncertainty": 0.443716,
+    "A_final_affiliation": 0.124733,
+    "B_final_activation": 0.363967,
+    "B_final_expected_value": 0.368654,
+    "B_final_uncertainty": 0.443716,
+    "B_final_affiliation": 0.108633
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.494206,
+   "final_block_score": 0.826587,
+   "first_block_score": 0.228968,
+   "success_rate": 0.433333,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.434127,
+    0.386905,
+    0.375,
+    0.513889,
+    0.487302,
+    0.63373,
+    0.841667,
+    0.811508
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.491347,
+    "A_sender": 1.192354,
+    "B_receiver": 0.731596,
+    "B_sender": 1.102247
+   },
+   "state_effect_persistence": {
+    "A": 9.0,
+    "B": 9.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.622561,
+    "A_unfamiliar": 0.631681,
+    "B_familiar": 0.74178,
+    "B_unfamiliar": 0.711992
+   },
+   "generalization_score": 0.583333,
+   "state_similarity": 0.802806,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.398269,
+    "A_final_expected_value": 0.676728,
+    "A_final_uncertainty": 0.446266,
+    "A_final_affiliation": 0.779917,
+    "B_final_activation": 0.391591,
+    "B_final_expected_value": 0.676728,
+    "B_final_uncertainty": 0.446266,
+    "B_final_affiliation": 0.789098
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.430992,
+   "final_block_score": 0.605952,
+   "first_block_score": 0.480952,
+   "success_rate": 0.341667,
+   "learning_curve": [
+    0.389682,
+    0.572222,
+    0.411508,
+    0.328175,
+    0.275794,
+    0.41746,
+    0.302778,
+    0.400397,
+    0.711111,
+    0.500794
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.627827,
+    "A_sender": 1.440502,
+    "B_receiver": 0.781467,
+    "B_sender": 0.716044
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.693141,
+    "A_unfamiliar": 0.710174,
+    "B_familiar": 0.787516,
+    "B_unfamiliar": 0.796856
+   },
+   "generalization_score": 0.65,
+   "state_similarity": 0.871631,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.594163,
+    "A_final_expected_value": 0.61856,
+    "A_final_uncertainty": 0.4255,
+    "A_final_affiliation": 0.124298,
+    "B_final_activation": 0.505575,
+    "B_final_expected_value": 0.61856,
+    "B_final_uncertainty": 0.4255,
+    "B_final_affiliation": 0.128368
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.578333,
+   "final_block_score": 0.737698,
+   "first_block_score": 0.257937,
+   "success_rate": 0.541667,
+   "learning_curve": [
+    0.128572,
+    0.387302,
+    0.616667,
+    0.486508,
+    0.767857,
+    0.498413,
+    0.755952,
+    0.666667,
+    0.614286,
+    0.861111
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.696293,
+    "A_sender": 1.838616,
+    "B_receiver": 0.996928,
+    "B_sender": 1.796868
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.70534,
+    "A_unfamiliar": 0.700138,
+    "B_familiar": 0.863102,
+    "B_unfamiliar": 0.833959
+   },
+   "generalization_score": 0.75,
+   "state_similarity": 0.643356,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.764178,
+    "A_final_expected_value": 0.90919,
+    "A_final_uncertainty": 0.20167,
+    "A_final_affiliation": 0.990882,
+    "B_final_activation": 0.639759,
+    "B_final_expected_value": 0.90919,
+    "B_final_uncertainty": 0.20167,
+    "B_final_affiliation": 0.986316
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.658532,
+   "final_block_score": 0.844643,
+   "first_block_score": 0.465278,
+   "success_rate": 0.616667,
+   "learning_curve": [
+    0.497222,
+    0.433333,
+    0.525,
+    0.567064,
+    0.636111,
+    0.548016,
+    0.85,
+    0.839286,
+    0.925,
+    0.764286
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.697056,
+    "A_sender": 1.553302,
+    "B_receiver": 0.849724,
+    "B_sender": 1.458972
+   },
+   "state_effect_persistence": {
+    "A": 8.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.710396,
+    "A_unfamiliar": 0.737248,
+    "B_familiar": 0.794621,
+    "B_unfamiliar": 0.794471
+   },
+   "generalization_score": 0.804167,
+   "state_similarity": 0.807048,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.37509,
+    "A_final_expected_value": 0.635049,
+    "A_final_uncertainty": 0.475864,
+    "A_final_affiliation": 0.88049,
+    "B_final_activation": 0.458964,
+    "B_final_expected_value": 0.635049,
+    "B_final_uncertainty": 0.475864,
+    "B_final_affiliation": 0.880484
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "episodes": 120,
+   "mean_score": 0.442222,
+   "final_block_score": 0.389683,
+   "first_block_score": 0.450198,
+   "success_rate": 0.383333,
+   "learning_curve": [
+    0.23373,
+    0.666667,
+    0.438889,
+    0.318254,
+    0.49246,
+    0.467064,
+    0.616667,
+    0.409127,
+    0.486508,
+    0.292857
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.587734,
+    "A_sender": 1.47256,
+    "B_receiver": 0.592407,
+    "B_sender": 1.175247
+   },
+   "state_effect_persistence": {
+    "A": 6.0,
+    "B": 7.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.668463,
+    "A_unfamiliar": 0.669743,
+    "B_familiar": 0.676676,
+    "B_unfamiliar": 0.686153
+   },
+   "generalization_score": 0.688095,
+   "state_similarity": 0.770796,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.331989,
+    "A_final_expected_value": 0.244188,
+    "A_final_uncertainty": 0.340801,
+    "A_final_affiliation": -0.199404,
+    "B_final_activation": 0.342798,
+    "B_final_expected_value": 0.244188,
+    "B_final_uncertainty": 0.340801,
+    "B_final_affiliation": -0.199235
+   }
+  },
+  {
+   "seed": 1,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.505913,
+   "final_block_score": 0.570238,
+   "first_block_score": 0.393452,
+   "success_rate": 0.416667,
+   "learning_curve": [
+    0.355952,
+    0.430952,
+    0.636111,
+    0.344841,
+    0.653175,
+    0.441666,
+    0.563889,
+    0.492063,
+    0.553968,
+    0.586508
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.461656,
+    "A_sender": 1.594961,
+    "B_receiver": 0.860206,
+    "B_sender": 1.157486
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.562661,
+    "A_unfamiliar": 0.572801,
+    "B_familiar": 0.824368,
+    "B_unfamiliar": 0.82534
+   },
+   "generalization_score": 0.6375,
+   "state_similarity": 0.813519,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.619736,
+    "A_final_expected_value": 0.646465,
+    "A_final_uncertainty": 0.4813,
+    "A_final_affiliation": 0.354164,
+    "B_final_activation": 0.597691,
+    "B_final_expected_value": 0.646465,
+    "B_final_uncertainty": 0.4813,
+    "B_final_affiliation": 0.366818
+   }
+  },
+  {
+   "seed": 2,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.340397,
+   "final_block_score": 0.454365,
+   "first_block_score": 0.164286,
+   "success_rate": 0.25,
+   "learning_curve": [
+    0.080556,
+    0.248016,
+    0.266667,
+    0.365476,
+    0.347619,
+    0.297619,
+    0.253175,
+    0.636111,
+    0.439286,
+    0.469444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.255369,
+    "A_sender": 1.053767,
+    "B_receiver": 0.881927,
+    "B_sender": 0.593295
+   },
+   "state_effect_persistence": {
+    "A": 11.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.526596,
+    "A_unfamiliar": 0.534414,
+    "B_familiar": 0.834381,
+    "B_unfamiliar": 0.858387
+   },
+   "generalization_score": 0.479762,
+   "state_similarity": 0.78612,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.47298,
+    "A_final_expected_value": 0.44673,
+    "A_final_uncertainty": 0.353364,
+    "A_final_affiliation": -0.188596,
+    "B_final_activation": 0.548828,
+    "B_final_expected_value": 0.44673,
+    "B_final_uncertainty": 0.353364,
+    "B_final_affiliation": -0.183074
+   }
+  },
+  {
+   "seed": 3,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.36623,
+   "final_block_score": 0.439087,
+   "first_block_score": 0.266468,
+   "success_rate": 0.283333,
+   "learning_curve": [
+    0.306349,
+    0.226587,
+    0.45,
+    0.300397,
+    0.327778,
+    0.33373,
+    0.486111,
+    0.353175,
+    0.419841,
+    0.458333
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.54849,
+    "A_sender": 0.685368,
+    "B_receiver": 0.470108,
+    "B_sender": 1.177496
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 12.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.669671,
+    "A_unfamiliar": 0.680508,
+    "B_familiar": 0.616974,
+    "B_unfamiliar": 0.586398
+   },
+   "generalization_score": 0.720833,
+   "state_similarity": 0.818904,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.53712,
+    "A_final_expected_value": 0.42842,
+    "A_final_uncertainty": 0.352706,
+    "A_final_affiliation": -0.218724,
+    "B_final_activation": 0.55146,
+    "B_final_expected_value": 0.42842,
+    "B_final_uncertainty": 0.352706,
+    "B_final_affiliation": -0.245623
+   }
+  },
+  {
+   "seed": 4,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.579881,
+   "final_block_score": 0.575198,
+   "first_block_score": 0.563095,
+   "success_rate": 0.516667,
+   "learning_curve": [
+    0.730556,
+    0.395635,
+    0.611905,
+    0.683333,
+    0.637302,
+    0.680952,
+    0.550397,
+    0.358333,
+    0.530952,
+    0.619444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.924507,
+    "A_sender": 1.626376,
+    "B_receiver": 0.738185,
+    "B_sender": 1.161574
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 13.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.837769,
+    "A_unfamiliar": 0.874058,
+    "B_familiar": 0.729099,
+    "B_unfamiliar": 0.72256
+   },
+   "generalization_score": 0.717262,
+   "state_similarity": 0.698151,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.554567,
+    "A_final_expected_value": 0.622222,
+    "A_final_uncertainty": 0.405637,
+    "A_final_affiliation": 0.29773,
+    "B_final_activation": 0.557881,
+    "B_final_expected_value": 0.622222,
+    "B_final_uncertainty": 0.405637,
+    "B_final_affiliation": 0.305872
+   }
+  },
+  {
+   "seed": 5,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.520397,
+   "final_block_score": 0.738889,
+   "first_block_score": 0.25377,
+   "success_rate": 0.466667,
+   "learning_curve": [
+    0.276191,
+    0.231349,
+    0.608333,
+    0.636111,
+    0.683333,
+    0.214286,
+    0.457143,
+    0.619444,
+    0.663889,
+    0.813889
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.917562,
+    "A_sender": 1.718891,
+    "B_receiver": 0.823586,
+    "B_sender": 1.543605
+   },
+   "state_effect_persistence": {
+    "A": 11.0,
+    "B": 8.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.847641,
+    "A_unfamiliar": 0.878438,
+    "B_familiar": 0.785618,
+    "B_unfamiliar": 0.794816
+   },
+   "generalization_score": 0.916667,
+   "state_similarity": 0.857034,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.459661,
+    "A_final_expected_value": 0.69411,
+    "A_final_uncertainty": 0.399572,
+    "A_final_affiliation": 0.702921,
+    "B_final_activation": 0.379168,
+    "B_final_expected_value": 0.69411,
+    "B_final_uncertainty": 0.399572,
+    "B_final_affiliation": 0.69634
+   }
+  },
+  {
+   "seed": 6,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.463413,
+   "final_block_score": 0.750397,
+   "first_block_score": 0.228968,
+   "success_rate": 0.4,
+   "learning_curve": [
+    0.153968,
+    0.303968,
+    0.414683,
+    0.455952,
+    0.486111,
+    0.336508,
+    0.500794,
+    0.481349,
+    0.841667,
+    0.659127
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.745226,
+    "A_sender": 1.358283,
+    "B_receiver": 0.976512,
+    "B_sender": 1.071964
+   },
+   "state_effect_persistence": {
+    "A": 12.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.726532,
+    "A_unfamiliar": 0.725516,
+    "B_familiar": 0.882204,
+    "B_unfamiliar": 0.858982
+   },
+   "generalization_score": 0.595833,
+   "state_similarity": 0.846473,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.522575,
+    "A_final_expected_value": 0.641393,
+    "A_final_uncertainty": 0.466938,
+    "A_final_affiliation": 0.502237,
+    "B_final_activation": 0.460379,
+    "B_final_expected_value": 0.641393,
+    "B_final_uncertainty": 0.466938,
+    "B_final_affiliation": 0.525577
+   }
+  },
+  {
+   "seed": 7,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.450357,
+   "final_block_score": 0.543254,
+   "first_block_score": 0.480952,
+   "success_rate": 0.358333,
+   "learning_curve": [
+    0.392063,
+    0.569841,
+    0.411508,
+    0.328175,
+    0.275794,
+    0.422222,
+    0.544444,
+    0.473016,
+    0.655555,
+    0.430952
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.295379,
+    "A_sender": 1.622967,
+    "B_receiver": 0.886352,
+    "B_sender": 1.014192
+   },
+   "state_effect_persistence": {
+    "A": 13.0,
+    "B": 10.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.545814,
+    "A_unfamiliar": 0.548842,
+    "B_familiar": 0.816175,
+    "B_unfamiliar": 0.840777
+   },
+   "generalization_score": 0.883929,
+   "state_similarity": 0.851568,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.610297,
+    "A_final_expected_value": 0.49379,
+    "A_final_uncertainty": 0.418119,
+    "A_final_affiliation": 0.093118,
+    "B_final_activation": 0.42588,
+    "B_final_expected_value": 0.49379,
+    "B_final_uncertainty": 0.418119,
+    "B_final_affiliation": 0.053486
+   }
+  },
+  {
+   "seed": 8,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.456627,
+   "final_block_score": 0.464087,
+   "first_block_score": 0.271825,
+   "success_rate": 0.4,
+   "learning_curve": [
+    0.156349,
+    0.387302,
+    0.386905,
+    0.413889,
+    0.478968,
+    0.403175,
+    0.811508,
+    0.6,
+    0.30873,
+    0.619444
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.840848,
+    "A_sender": 0.5595,
+    "B_receiver": 0.35369,
+    "B_sender": 1.540785
+   },
+   "state_effect_persistence": {
+    "A": 15.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.782729,
+    "A_unfamiliar": 0.768113,
+    "B_familiar": 0.557265,
+    "B_unfamiliar": 0.564552
+   },
+   "generalization_score": 0.563095,
+   "state_similarity": 0.859788,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.698659,
+    "A_final_expected_value": 0.610041,
+    "A_final_uncertainty": 0.5236,
+    "A_final_affiliation": 0.304012,
+    "B_final_activation": 0.620773,
+    "B_final_expected_value": 0.610041,
+    "B_final_uncertainty": 0.5236,
+    "B_final_affiliation": 0.278882
+   }
+  },
+  {
+   "seed": 9,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.517103,
+   "final_block_score": 0.598611,
+   "first_block_score": 0.423611,
+   "success_rate": 0.458333,
+   "learning_curve": [
+    0.497222,
+    0.35,
+    0.305952,
+    0.486111,
+    0.636111,
+    0.45873,
+    0.539286,
+    0.700397,
+    0.719444,
+    0.477778
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.741277,
+    "A_sender": 0.894616,
+    "B_receiver": 0.27813,
+    "B_sender": 1.518657
+   },
+   "state_effect_persistence": {
+    "A": 7.0,
+    "B": 11.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.754843,
+    "A_unfamiliar": 0.778655,
+    "B_familiar": 0.462949,
+    "B_unfamiliar": 0.460714
+   },
+   "generalization_score": 0.775,
+   "state_similarity": 0.796384,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.349908,
+    "A_final_expected_value": 0.407884,
+    "A_final_uncertainty": 0.484353,
+    "A_final_affiliation": 0.555101,
+    "B_final_activation": 0.498191,
+    "B_final_expected_value": 0.407884,
+    "B_final_uncertainty": 0.484353,
+    "B_final_affiliation": 0.551225
+   }
+  },
+  {
+   "seed": 10,
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "episodes": 120,
+   "mean_score": 0.46504,
+   "final_block_score": 0.529762,
+   "first_block_score": 0.450198,
+   "success_rate": 0.4,
+   "learning_curve": [
+    0.23373,
+    0.666667,
+    0.438889,
+    0.337698,
+    0.49246,
+    0.522619,
+    0.481349,
+    0.41746,
+    0.364286,
+    0.695238
+   ],
+   "policy_shift_kl": {
+    "A_receiver": 0.702817,
+    "A_sender": 1.036792,
+    "B_receiver": 0.992376,
+    "B_sender": 1.545999
+   },
+   "state_effect_persistence": {
+    "A": 14.0,
+    "B": 14.0
+   },
+   "familiar_vs_unfamiliar": {
+    "A_familiar": 0.713474,
+    "A_unfamiliar": 0.733391,
+    "B_familiar": 0.882124,
+    "B_unfamiliar": 0.817662
+   },
+   "generalization_score": 0.563095,
+   "state_similarity": 0.867094,
+   "extra": {
+    "chance_score": 0.325595,
+    "A_final_activation": 0.628759,
+    "A_final_expected_value": 0.702586,
+    "A_final_uncertainty": 0.454641,
+    "A_final_affiliation": 0.143755,
+    "B_final_activation": 0.618136,
+    "B_final_expected_value": 0.702586,
+    "B_final_uncertainty": 0.454641,
+    "B_final_affiliation": 0.187775
+   }
+  }
+ ],
+ "aggregates": [
+  {
+   "condition": "perturbed",
+   "perturbation": "transpose",
+   "n_runs": 10,
+   "mean_final_block_score": 0.629266,
+   "sd_final_block_score": 0.112428,
+   "mean_success_rate": 0.435,
+   "sd_success_rate": 0.100523,
+   "mean_learning_curve": [
+    0.316944,
+    0.396508,
+    0.495198,
+    0.453849,
+    0.501508,
+    0.469762,
+    0.54881,
+    0.565198,
+    0.568294,
+    0.690238
+   ],
+   "sd_learning_curve": [
+    0.189103,
+    0.158628,
+    0.167498,
+    0.110031,
+    0.197139,
+    0.117823,
+    0.185197,
+    0.111736,
+    0.156426,
+    0.148342
+   ],
+   "per_run_final_block": [
+    0.611905,
+    0.444643,
+    0.44881,
+    0.591667,
+    0.691865,
+    0.805555,
+    0.639286,
+    0.682143,
+    0.704365,
+    0.672421
+   ]
+  },
+  {
+   "condition": "perturbed",
+   "perturbation": "velocity_flatten",
+   "n_runs": 10,
+   "mean_final_block_score": 0.668849,
+   "sd_final_block_score": 0.093713,
+   "mean_success_rate": 0.458333,
+   "sd_success_rate": 0.075462,
+   "mean_learning_curve": [
+    0.333849,
+    0.385516,
+    0.491071,
+    0.478492,
+    0.54746,
+    0.465278,
+    0.558056,
+    0.616746,
+    0.648572,
+    0.689127
+   ],
+   "sd_learning_curve": [
+    0.203835,
+    0.173066,
+    0.128632,
+    0.11176,
+    0.181133,
+    0.130525,
+    0.109464,
+    0.127838,
+    0.126988,
+    0.136039
+   ],
+   "per_run_final_block": [
+    0.65496,
+    0.520833,
+    0.711111,
+    0.601389,
+    0.639087,
+    0.865278,
+    0.607143,
+    0.72381,
+    0.726786,
+    0.638095
+   ]
+  },
+  {
+   "condition": "perturbed",
+   "perturbation": "tempo_shift",
+   "n_runs": 10,
+   "mean_final_block_score": 0.637837,
+   "sd_final_block_score": 0.093792,
+   "mean_success_rate": 0.468333,
+   "sd_success_rate": 0.084875,
+   "mean_learning_curve": [
+    0.320556,
+    0.390476,
+    0.529524,
+    0.510397,
+    0.549722,
+    0.471468,
+    0.577421,
+    0.659444,
+    0.57381,
+    0.701865
+   ],
+   "sd_learning_curve": [
+    0.192417,
+    0.142285,
+    0.14416,
+    0.12679,
+    0.17999,
+    0.125856,
+    0.140498,
+    0.128144,
+    0.126277,
+    0.140781
+   ],
+   "per_run_final_block": [
+    0.639286,
+    0.548611,
+    0.706944,
+    0.511309,
+    0.668254,
+    0.771032,
+    0.742063,
+    0.693056,
+    0.517063,
+    0.580754
+   ]
+  },
+  {
+   "condition": "perturbed",
+   "perturbation": "contour_invert",
+   "n_runs": 10,
+   "mean_final_block_score": 0.6575,
+   "sd_final_block_score": 0.117197,
+   "mean_success_rate": 0.453333,
+   "sd_success_rate": 0.089598,
+   "mean_learning_curve": [
+    0.325754,
+    0.404841,
+    0.512698,
+    0.438611,
+    0.531984,
+    0.457421,
+    0.527421,
+    0.650714,
+    0.625595,
+    0.689405
+   ],
+   "sd_learning_curve": [
+    0.194294,
+    0.157962,
+    0.152897,
+    0.086614,
+    0.193056,
+    0.128451,
+    0.131021,
+    0.21737,
+    0.131538,
+    0.159434
+   ],
+   "per_run_final_block": [
+    0.65496,
+    0.483333,
+    0.527976,
+    0.702778,
+    0.774008,
+    0.805555,
+    0.582341,
+    0.543254,
+    0.711706,
+    0.789087
+   ]
+  },
+  {
+   "condition": "perturbed",
+   "perturbation": "rhythm_shuffle",
+   "n_runs": 10,
+   "mean_final_block_score": 0.617559,
+   "sd_final_block_score": 0.149139,
+   "mean_success_rate": 0.439167,
+   "sd_success_rate": 0.108799,
+   "mean_learning_curve": [
+    0.316944,
+    0.413175,
+    0.52627,
+    0.450833,
+    0.511548,
+    0.441349,
+    0.563333,
+    0.585079,
+    0.656071,
+    0.579048
+   ],
+   "sd_learning_curve": [
+    0.189103,
+    0.156942,
+    0.156786,
+    0.106159,
+    0.180976,
+    0.11085,
+    0.174987,
+    0.131822,
+    0.149423,
+    0.190099
+   ],
+   "per_run_final_block": [
+    0.65496,
+    0.534722,
+    0.511111,
+    0.586309,
+    0.483929,
+    0.826587,
+    0.605952,
+    0.737698,
+    0.844643,
+    0.389683
+   ]
+  },
+  {
+   "condition": "perturbed",
+   "perturbation": "pitch_shuffle",
+   "n_runs": 10,
+   "mean_final_block_score": 0.566389,
+   "sd_final_block_score": 0.108445,
+   "mean_success_rate": 0.395,
+   "sd_success_rate": 0.081195,
+   "mean_learning_curve": [
+    0.318294,
+    0.381032,
+    0.453095,
+    0.435198,
+    0.501865,
+    0.411151,
+    0.51881,
+    0.513135,
+    0.549762,
+    0.583016
+   ],
+   "sd_learning_curve": [
+    0.190802,
+    0.145615,
+    0.12781,
+    0.132317,
+    0.14842,
+    0.129876,
+    0.136194,
+    0.120557,
+    0.170023,
+    0.123378
+   ],
+   "per_run_final_block": [
+    0.570238,
+    0.454365,
+    0.439087,
+    0.575198,
+    0.738889,
+    0.750397,
+    0.543254,
+    0.464087,
+    0.598611,
+    0.529762
+   ]
+  }
+ ],
+ "notes": [
+  "Runs are the unit of analysis; turns within a run are correlated.",
+  "Controls may match or exceed the full condition; report as-is.",
+  "State variables are engineered quantities with operational definitions, not measurements of feelings.",
+  "state_fixed and state_decoupled differ only in whether state values evolve; in this design state reaches behaviour only through coupling, so their behaviour can coincide.",
+  "Probe metrics (KL, familiarity, generalization) are evaluated at temperature_base after the run."
+ ]
+}

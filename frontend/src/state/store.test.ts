@@ -59,6 +59,19 @@ describe('lab reducer', () => {
     expect(focusedEpisode(s)?.step).toBe(2)
   })
 
+  it('an immediate reset_state is drawn as a jump at the current x, keeping the pre-reset point', async () => {
+    const { api, s: s0, id } = await loaded()
+    let s = reducer(s0, { type: 'stepResult', result: await api.step(id, { n: 4 }) })
+    const before = s.statePoints.B[s.statePoints.B.length - 1]
+    s = reducer(s, { type: 'stepResult', result: await api.intervene(id, { kind: 'reset_state', agent_id: 'B' }) })
+    const pts = s.statePoints.B
+    expect(pts[pts.length - 2]).toEqual(before)
+    expect(pts[pts.length - 1].step).toBe(before.step)
+    expect(pts[pts.length - 1].state).toEqual(s.session!.agents[1].baseline)
+    s = reducer(s, { type: 'stepResult', result: await api.step(id, { n: 1 }) })
+    expect(s.statePoints.B[s.statePoints.B.length - 1].step).toBe(before.step + 1)
+  })
+
   it('badge semantics: DEMO for mock, REPLAY for imported runs, LIVE otherwise', async () => {
     const { s } = await loaded()
     expect(badgeFor(s)).toEqual(['demo'])

@@ -147,13 +147,11 @@ function mergePoints(
       else pts.push(p)
     }
     if (!last) {
-      const x = snapshot.step
+      // No state_update in these events but the state changed (e.g. reset_state, applied immediately):
+      // append a point at the same x so the plot shows an instantaneous jump instead of rewriting history.
       const tail = pts[pts.length - 1]
       const same = tail && JSON.stringify(tail.state) === JSON.stringify(a.state)
-      if (!same) {
-        if (tail && tail.step === x) pts[pts.length - 1] = { step: x, state: { ...a.state } }
-        else pts.push({ step: x, state: { ...a.state } })
-      }
+      if (!same) pts.push({ step: snapshot.step, state: { ...a.state } })
     }
     out[a.id] = pts
   }

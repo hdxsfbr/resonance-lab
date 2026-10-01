@@ -42,12 +42,12 @@ resume point; update it at every checkpoint.
 
 - [x] Workspace inspected, toolchain verified, local model verified
 - [x] Contracts: `schemas.py`, `docs/CONTRACTS.md`, `config/default.yaml`, API signatures, generated TS types
-- [ ] WS1 sim core (music, features, synth, agents, env, session, conditions, experiments, persistence, API)
+- [x] WS1 sim core — 143 tests pass (+3 slow llama); ruff clean; server verified end to end by orchestrator (health, step, isolation, reset_memory, WAV, export/import)
 - [ ] WS2 frontend (lab screen, audio, piano roll, plots, controls, interventions, inspector, experiments view)
 - [x] WS3 research note, providers (llamacpp tested with real local call; anthropic/openai-compatible untested against live services, plumbing unit-tested), prompts, model setup docs — 56 tests pass (53 + 3 slow)
 - [ ] Integration: real API ↔ frontend, `make types` regenerated, `./start.sh` works
 - [ ] Browser smoke test (Playwright) at desktop size
-- [ ] Batch experiments run; sample exports + report in `data/exports/` and `docs/EXPERIMENT_REPORT.md`
+- [x] Batch experiments run (6 conditions × 10 seeds, ablations, perturbations, 300-episode horizon, presets) → `data/exports/`, `docs/EXPERIMENT_REPORT.md`
 - [ ] README + architecture + definitions docs
 - [ ] Final verification against acceptance criteria
 
@@ -57,7 +57,7 @@ None.
 
 ## Exact next action
 
-Launch WS1/WS2/WS3 Opus agents with the briefs below; while they run, write README skeleton.
+When WS2 reports: build frontend, run Playwright smoke against the REAL backend at 1440×900, fix integration issues, verify `./start.sh`, finalize README, push.
 
 ## Commands
 
@@ -66,6 +66,10 @@ Launch WS1/WS2/WS3 Opus agents with the briefs below; while they run, write READ
 - `make test` / `make smoke` / `make types` / `make experiments`
 
 ## Validation log
+
+- 2026-10-01 06:55 — Orchestrator verification of WS1: `RESONANCE_SKIP_SLOW=1 pytest` → 143 passed, 3 skipped (12 s); ruff clean after StrEnum fix. Live uvicorn on :8011: health ok; create+step 3 → 30 events, receiver observation has no target; reset_memory → memory 0, state unchanged; render → 200 audio/wav 237,744 B; export 32 events → import → mode replay.
+- 2026-10-01 06:58 — Real local-model session (llamacpp, agent B receiver, budget 3): 2 model_call events ok, modality symbolic_features, ~10 s each, no "target" in receiver prompt, no env values in export. Script: backend/scripts/model_e2e.py.
+- 2026-10-01 06:57 — Ablations (backend/scripts/ablations.py → data/exports/experiment_ablation_*.json): acoustic off 0.638±0.127; no affiliation→lr 0.654±0.090; no expressive 0.640±0.114; no temperature coupling 0.638±0.120; pitch_shuffle 0.566±0.108 lowest; 300 episodes: full 0.771, symbol 0.833, no_history 0.326.
 
 - 2026-10-01 06:35 — WS3: `RESONANCE_SKIP_SLOW=1 pytest tests/test_models_*.py` → 53 passed, 3 skipped; ruff clean. Real local-model receiver decision: ~11 s idle, 22 s under load; the 0.5B model is a weak decision-maker (recorded honestly).
 - 2026-10-01 05:58 — schemas import; `config/default.yaml` validates; OpenAPI: 25 routes, 51 schemas; TS types generated (2544 lines).
