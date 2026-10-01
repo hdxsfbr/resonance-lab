@@ -323,11 +323,11 @@ class LearningConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     enabled: bool = True
-    receiver_learning_rate: float = 0.15
-    sender_learning_rate: float = 0.2
-    temperature_base: float = 0.35
+    receiver_learning_rate: float = 0.3
+    sender_learning_rate: float = 0.3
+    temperature_base: float = 0.12
     receiver_l2: float = 0.001
-    optimistic_init: float = Field(default=0.5, description="Initial sender Q value")
+    optimistic_init: float = Field(default=0.0, description="Initial sender Q value")
     receiver_init_scale: float = Field(default=0.0, description="Scale of random init for receiver weights")
 
 
@@ -757,7 +757,7 @@ class ModelRequest(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    purpose: Literal["choose_pattern", "propose_phrase", "narrative"]
+    purpose: Literal["choose_pattern", "choose_motif", "propose_phrase", "narrative"]
     system_prompt: str
     user_prompt: str
     json_schema: dict[str, Any] | None = None

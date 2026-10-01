@@ -29,11 +29,15 @@ coupling:
 
 learning:
   enabled: true
-  receiver_learning_rate: 0.15
-  sender_learning_rate: 0.2
-  temperature_base: 0.35
+  # Tuned by WS1 (seeds 1-16 x 150 episodes): final-block score ~0.6-0.7 with seed sd ~0.1
+  # (chance with partial credit = 0.326). See docs/EXPERIMENT_REPORT.md / WS1 report.
+  receiver_learning_rate: 0.3
+  sender_learning_rate: 0.3
+  temperature_base: 0.12
   receiver_l2: 0.001
-  optimistic_init: 0.5
+  # Initial sender Q value. 0.0 (not optimistic): the first motif that earns any score for a
+  # target becomes preferred, which speeds up convention formation in this small game.
+  optimistic_init: 0.0
   receiver_init_scale: 0.0
 
 memory:
