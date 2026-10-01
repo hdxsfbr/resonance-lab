@@ -255,6 +255,11 @@ export async function chooseClient(
     const api = await makeMock()
     return { api, reason: 'forced by ?mock=1', health: await api.health() }
   }
+  // Hosted demo builds (VITE_FORCE_MOCK=1) never have a backend: skip the probe.
+  if (import.meta.env.VITE_FORCE_MOCK === '1') {
+    const api = await makeMock()
+    return { api, reason: 'hosted demo build (no backend)', health: await api.health() }
+  }
   try {
     const health = await Promise.race([
       live.health(),
